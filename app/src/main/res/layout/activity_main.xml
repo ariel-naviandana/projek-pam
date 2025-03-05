@@ -7,19 +7,6 @@
     android:background="@drawable/gradient_background"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="@color/orange"
-        android:text="LOGIN"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
-        app:layout_constraintWidth_percent="0.8" />
-
     <ImageView
         android:id="@+id/logo"
         android:layout_width="150dp"
@@ -28,7 +15,6 @@
         android:contentDescription="Logo"
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,30 +33,22 @@
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintWidth_percent="0.8" />
 
-    <ImageView
-        android:id="@+id/btnSocialLogin"
-        android:layout_width="150dp"
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="Login with social media"
-        android:src="@drawable/social"
+        android:layout_marginTop="12dp"
+        android:autofillHints="Masukkan email anda"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:padding="15dp"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtRegister" />
-
-    <TextView
-        android:id="@+id/txtRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Don't have an account? Register now"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtForgotPassword" />
+        app:layout_constraintTop_toBottomOf="@id/txtDesc"
+        app:layout_constraintWidth_percent="0.8" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -83,16 +61,30 @@
         android:inputType="textPassword"
         android:padding="15dp"
         android:textColorHint="@color/black"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etEmail"
+        app:layout_constraintWidth_percent="0.8" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/orange"
+        android:text="LOGIN"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
         app:layout_constraintWidth_percent="0.8" />
 
     <TextView
         android:id="@+id/txtForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:text="Forgot Password?"
         android:textColor="@android:color/white"
         android:textSize="14sp"
@@ -101,31 +93,38 @@
         app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
     <TextView
+        android:id="@+id/txtRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Don't have an account? Register now"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtForgotPassword" />
+
+    <ImageView
+        android:id="@+id/btnSocialLogin"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Login with social media"
+        android:src="@drawable/social"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtRegister" />
+
+    <TextView
         android:id="@+id/txtTerms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:text="By signing up, you agree with our Terms Conditions"
+        android:layout_marginTop="16dp"
+        android:text="By signing up, you agree with our Terms and Conditions"
         android:textColor="@android:color/white"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:autofillHints="Masukkan email anda"
-        android:background="@drawable/rounded_edittext"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress"
-        android:padding="15dp"
-        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtDesc"
-        app:layout_constraintWidth_percent="0.8" />
+        app:layout_constraintTop_toBottomOf="@id/btnSocialLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

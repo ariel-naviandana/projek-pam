@@ -96,7 +96,7 @@ tools:context=".MainActivity">
     android:id="@+id/txtRegister"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="24dp"
+    android:layout_marginTop="42dp"
     android:textColor="@android:color/white"
     android:textSize="14sp"
     android:text="@string/register_text"
@@ -104,16 +104,39 @@ tools:context=".MainActivity">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/txtForgotPassword" />
 
-<ImageView
-    android:id="@+id/btnSocialLogin"
-    android:layout_width="150dp"
-    android:layout_height="50dp"
-    android:layout_marginTop="42dp"
-    android:contentDescription="Login with social media"
-    android:src="@drawable/social"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/txtRegister" />
+
+    <LinearLayout
+        android:id="@+id/btnSocialLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="42dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/txtTerms"
+        app:layout_constraintTop_toBottomOf="@id/txtRegister">
+
+        <ImageView
+            android:id="@+id/btnGmailLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/gmail"/>
+
+        <ImageView
+            android:id="@+id/btnFacebookLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/facebook" />
+
+        <ImageView
+            android:id="@+id/btnTwitterLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/twitter"/>
+    </LinearLayout>
 
 <TextView
     android:id="@+id/txtTerms"

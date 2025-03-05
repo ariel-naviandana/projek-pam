@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="84dp"
-        android:contentDescription="Logo"
-        android:src="@drawable/logo"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="84dp"
+        android:src="@drawable/login_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
         app:layout_constraintWidth_percent="0.8" />
 
     <EditText
@@ -47,6 +47,7 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/etPassword"
         app:layout_constraintTop_toBottomOf="@id/txtDesc"
         app:layout_constraintWidth_percent="0.8" />
 
@@ -64,6 +65,7 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnLogin"
         app:layout_constraintTop_toBottomOf="@id/etEmail"
         app:layout_constraintWidth_percent="0.8" />
 
@@ -77,6 +79,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtForgotPassword"
         app:layout_constraintTop_toBottomOf="@id/etPassword"
         app:layout_constraintWidth_percent="0.8" />
 
@@ -90,6 +93,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtRegister"
         app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
     <TextView
@@ -102,29 +106,54 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/socialMediaLogin"
         app:layout_constraintTop_toBottomOf="@id/txtForgotPassword" />
 
-    <ImageView
-        android:id="@+id/btnSocialLogin"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="Login with social media"
-        android:src="@drawable/social"
+    <LinearLayout
+        android:id="@+id/socialMediaLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtRegister" />
+        app:layout_constraintBottom_toTopOf="@+id/txtTerms"
+        app:layout_constraintTop_toBottomOf="@id/txtRegister">
+
+        <ImageView
+            android:id="@+id/btnGmailLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/gmail"/>
+
+        <ImageView
+            android:id="@+id/btnFacebookLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/facebook" />
+
+        <ImageView
+            android:id="@+id/btnTwitterLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/twitter"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtTerms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="84dp"
         android:text="By signing up, you agree with our Terms and Conditions"
         android:textColor="@android:color/white"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSocialLogin" />
+        app:layout_constraintTop_toBottomOf="@id/socialMediaLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

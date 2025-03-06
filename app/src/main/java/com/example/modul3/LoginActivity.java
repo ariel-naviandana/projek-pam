@@ -3,35 +3,25 @@ package com.example.modul3;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.modul3.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText etEmail, etPassword;
-    private Button btnLogin;
-    private TextView txtForgotPassword, txtRegister;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        etEmail = findViewById(R.id.etEmail);
-        etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        txtForgotPassword = findViewById(R.id.txtForgotPassword);
-        txtRegister = findViewById(R.id.txtRegister);
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String email = etEmail.getText().toString().trim();
-                String password = etPassword.getText().toString().trim();
+                String email = binding.etEmail.getText().toString().trim();
+                String password = binding.etPassword.getText().toString().trim();
 
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Email dan Password tidak boleh kosong!", Toast.LENGTH_SHORT).show();
@@ -49,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        txtForgotPassword.setOnClickListener(new View.OnClickListener() {
+        binding.txtForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this, "Fitur Lupa Password belum Tersedia", Toast.LENGTH_SHORT).show();
@@ -57,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        txtRegister.setOnClickListener(new View.OnClickListener() {
+        binding.txtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this, "Fitur Register belum tersedia", Toast.LENGTH_SHORT).show();

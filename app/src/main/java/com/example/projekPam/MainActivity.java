@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             if (isValidEmail(email) && isValidPassword(password)) {
                 Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, HeadActivity.class);
                 startActivity(intent);
                 finish();
             } else {

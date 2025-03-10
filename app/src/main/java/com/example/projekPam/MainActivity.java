@@ -1,4 +1,4 @@
-package com.example.modul3;
+package com.example.projekPam;
 
 import android.content.Intent;
 import android.os.Bundle;

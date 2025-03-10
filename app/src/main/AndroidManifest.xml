@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/icon_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Modul3"
+        android:theme="@style/Theme.ProjekPam"
         tools:targetApi="31">
         <activity
             android:name=".LoginActivity"

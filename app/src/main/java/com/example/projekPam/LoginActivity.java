@@ -1,11 +1,11 @@
-package com.example.modul3;
+package com.example.projekPam;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.modul3.databinding.ActivityLoginBinding;
+import com.example.projekPam.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.example.modul3;
+package com.example.projekPam;
 
 import org.junit.Test;
 

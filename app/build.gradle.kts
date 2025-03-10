@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.modul3"
+    namespace = "com.example.projekPam"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.modul3"
+        applicationId = "com.example.projekPam"
         minSdk = 34
         targetSdk = 35
         versionCode = 1
@@ -28,6 +28,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    viewBinding {
+        enable = true
     }
 }
 

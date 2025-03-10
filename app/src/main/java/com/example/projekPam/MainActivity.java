@@ -18,45 +18,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(binding.getRoot());
 
         binding.btnLogin.setOnClickListener(this);
-        binding.txtForgotPassword.setOnClickListener(this);
-        binding.txtRegister.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btnLogin) {
-            handleLogin();
-        } else if (id == R.id.txtForgotPassword) {
-            Toast.makeText(this, "Fitur Lupa Password belum Tersedia", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.txtRegister) {
-            Toast.makeText(this, "Fitur Register belum tersedia", Toast.LENGTH_SHORT).show();
-        }
+        if (id == R.id.btnLogin)
+            cekLogin();
     }
 
-    private void handleLogin() {
+    private void cekLogin() {
         String email = binding.etEmail.getText().toString().trim();
         String password = binding.etPassword.getText().toString().trim();
 
-        if (email.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty())
             Toast.makeText(this, "Email dan Password tidak boleh kosong!", Toast.LENGTH_SHORT).show();
-        } else {
-            if (isValidEmail(email) && isValidPassword(password)) {
+        else {
+            if (email.equals("arielnaviandanaputra@gmail.com") && password.equals("235150701111010")) {
                 Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, HeadActivity.class);
                 startActivity(intent);
                 finish();
-            } else {
+            } else
                 Toast.makeText(this, "Email atau Password tidak valid!", Toast.LENGTH_SHORT).show();
-            }
         }
-    }
-
-    private boolean isValidEmail(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private boolean isValidPassword(String password) {
-        return password.length() >= 6;
     }
 }

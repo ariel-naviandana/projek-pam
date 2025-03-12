@@ -2,5 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_bg">#F5F5F5</color>
     <color name="orange">#FD8C00</color>
+    <color name="primary">#254C9F</color>
+    <color name="secondary">#50B3F7</color>
+    <color name="third">#FBBB00</color>
+    <color name="yellow">#FFD700</color>
+    <color name="red">#FF0000</color>
+    <color name="grey">#888888</color>
+    <color name="blue">#2650A2</color>
+    <color name="light_blue">#E3F2FD</color>
 </resources>

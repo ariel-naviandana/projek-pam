@@ -10,7 +10,7 @@
     <string name="username">Username</string>
     <string name="login">LOGIN</string>
     <string name="register">REGISTER</string>
-    <string name="forgot_password">Forgot Password?</string>
+    <string name="forgot_password"><font color="#FBBB00">Forgot Password?</font></string>
     <string name="gmail">gmail</string>
     <string name="facebook">facebook</string>
     <string name="twitter">twitter</string>

@@ -17,6 +17,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        String username = getIntent().getStringExtra("USERNAME");
+        if (username != null)
+            binding.etUsername.setText(username);
+
         binding.btnLogin.setOnClickListener(this);
         binding.txtForgotPassword.setOnClickListener(this);
         binding.txtRegister.setOnClickListener(this);
@@ -25,30 +29,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btnLogin) {
+        if (id == R.id.btnLogin)
             handleLogin();
-        } else if (id == R.id.txtForgotPassword) {
+        else if (id == R.id.txtForgotPassword)
             Toast.makeText(this, "Fitur Lupa Password belum Tersedia", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.txtRegister) {
-            Toast.makeText(this, "Fitur Register belum tersedia", Toast.LENGTH_SHORT).show();
+        else if (id == R.id.txtRegister) {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
     private void handleLogin() {
-        String email = binding.etEmail.getText().toString().trim();
+        String email = binding.etUsername.getText().toString().trim();
         String password = binding.etPassword.getText().toString().trim();
 
-        if (email.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty())
             Toast.makeText(this, "Email dan Password tidak boleh kosong!", Toast.LENGTH_SHORT).show();
-        } else {
+        else {
             if (isValidEmail(email) && isValidPassword(password)) {
                 Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
-            } else {
+            } else
                 Toast.makeText(this, "Email atau Password tidak valid!", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 

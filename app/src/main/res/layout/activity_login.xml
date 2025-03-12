@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 <androidx.constraintlayout.widget.ConstraintLayout
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
+    android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:background="@drawable/gradient_background"
 tools:context=".MainActivity">
@@ -37,22 +37,22 @@ tools:context=".MainActivity">
     app:layout_constraintTop_toBottomOf="@id/logo"
     app:layout_constraintWidth_percent="0.8" />
 
-<EditText
-    android:id="@+id/etEmail"
-    android:layout_width="0dp"
-    android:layout_height="50dp"
-    android:layout_marginTop="54dp"
-    android:autofillHints="Masukkan email anda"
-    android:background="@drawable/rounded_edittext"
-    android:hint="@string/email_address"
-    android:inputType="textEmailAddress"
-    android:padding="15dp"
-    android:textColorHint="@color/black"
-    android:textColor="@color/black"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/txtDesc"
-    app:layout_constraintWidth_percent="0.8" />
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="54dp"
+        android:autofillHints="Masukkan username anda"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDesc"
+        app:layout_constraintWidth_percent="0.8" />
 
 <EditText
     android:id="@+id/etPassword"
@@ -68,7 +68,7 @@ tools:context=".MainActivity">
     android:textColor="@color/black"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/etEmail"
+    app:layout_constraintTop_toBottomOf="@id/etUsername"
     app:layout_constraintWidth_percent="0.8" />
 
 <Button
@@ -145,17 +145,17 @@ tools:context=".MainActivity">
             android:src="@drawable/twitter"/>
     </LinearLayout>
 
-<TextView
-    android:id="@+id/txtTerms"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="53dp"
-    android:textColor="@android:color/white"
-    android:textSize="12sp"
-    android:text="@string/terms_text"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/btnSocialLogin" />
+    <TextView
+        android:id="@+id/txtTerms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/terms_text"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSocialLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

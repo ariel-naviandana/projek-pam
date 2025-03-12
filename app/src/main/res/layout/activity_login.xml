@@ -43,7 +43,7 @@ tools:context=".MainActivity">
         android:layout_height="50dp"
         android:layout_marginTop="54dp"
         android:autofillHints="username"
-        android:background="@drawable/rounded_edittext"
+        android:background="@drawable/rounded_edit_text"
         android:hint="@string/username"
         android:inputType="textPersonName"
         android:padding="15dp"
@@ -60,7 +60,7 @@ tools:context=".MainActivity">
     android:layout_height="50dp"
     android:layout_marginTop="24dp"
     android:autofillHints="password"
-    android:background="@drawable/rounded_edittext"
+    android:background="@drawable/rounded_edit_text"
     android:hint="@string/password"
     android:inputType="textPassword"
     android:padding="15dp"
@@ -126,7 +126,7 @@ tools:context=".MainActivity">
             android:layout_height="wrap_content"
             android:contentDescription="@string/gmail"
             android:padding="10dp"
-            android:src="@drawable/gmail"/>
+            android:src="@drawable/ic_gmail"/>
 
         <ImageView
             android:id="@+id/btnFacebookLogin"
@@ -134,7 +134,7 @@ tools:context=".MainActivity">
             android:layout_height="wrap_content"
             android:contentDescription="@string/facebook"
             android:padding="10dp"
-            android:src="@drawable/facebook" />
+            android:src="@drawable/ic_facebook" />
 
         <ImageView
             android:id="@+id/btnTwitterLogin"
@@ -142,7 +142,7 @@ tools:context=".MainActivity">
             android:layout_height="wrap_content"
             android:contentDescription="@string/twitter"
             android:padding="10dp"
-            android:src="@drawable/twitter"/>
+            android:src="@drawable/ic_twitter"/>
     </LinearLayout>
 
     <TextView

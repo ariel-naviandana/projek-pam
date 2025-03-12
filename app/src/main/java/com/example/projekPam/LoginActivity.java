@@ -41,27 +41,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void handleLogin() {
-        String email = binding.etUsername.getText().toString().trim();
+        String username = binding.etUsername.getText().toString().trim();
         String password = binding.etPassword.getText().toString().trim();
+        String validUsername = getIntent().getStringExtra("USERNAME");
+        String validPassword = getIntent().getStringExtra("PASSWORD");
 
-        if (email.isEmpty() || password.isEmpty())
+        if (username.isEmpty() || password.isEmpty())
             Toast.makeText(this, "Email dan Password tidak boleh kosong!", Toast.LENGTH_SHORT).show();
         else {
-            if (isValidEmail(email) && isValidPassword(password)) {
+            if (username.equals(validUsername) && password.equals(validPassword)) {
                 Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, ChallengeActivity.class);
                 startActivity(intent);
                 finish();
             } else
                 Toast.makeText(this, "Email atau Password tidak valid!", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private boolean isValidEmail(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private boolean isValidPassword(String password) {
-        return password.length() >= 6;
     }
 }

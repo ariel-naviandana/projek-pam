@@ -28,4 +28,8 @@
     <string name="_0">0%</string>
     <string name="join_challenge">Join Challenge</string>
     <string name="zero_percent">0%</string>
+    <string name="profile">Profile</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="email">Email</string>
+    <string name="simpan">Simpan</string>
 </resources>

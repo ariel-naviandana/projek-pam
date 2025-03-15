@@ -31,4 +31,23 @@
     <string name="zero_percent">0%</string>
     <string name="back">Kembali</string>
     <string name="bawa_bekal_makanan">Bawa bekal makanan</string>
+    <string name="search">Mau belajar apa?</string>
+    <string name="home">Home</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="profile">Profile</string>
+    <string name="notif">Notifikasi</string>
+    <string name="avatar">Avatar</string>
+    <string name="materi">Materi Pelajaran</string>
+    <string name="challenge">Challenge</string>
+    <string name="agustus">Agustus Challenge Mengurangi Sampah Plastik</string>
+    <string name="periodeAgustus">Periode : 1 - 10 Agustus 2025</string>
+    <string name="detail">Detail</string>
+    <string name="september">September Challenge Menanam Pohon</string>
+    <string name="periodeSeptember">Periode : 4 - 16 September 2025</string>
+    <string name="pengantar">Pengantar</string>
+    <string name="grk">Gas Rumah Kaca</string>
+    <string name="pi">Perubahan Iklim</string>
+    <string name="et">Energi Terbarukan</string>
+    <string name="ap">Adaptasi Perubahan</string>
+    <string name="sampah">Sampah</string>
 </resources>

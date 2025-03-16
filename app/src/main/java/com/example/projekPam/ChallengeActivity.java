@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.projekPam.databinding.ActivityChallengeBinding;
 
 public class ChallengeActivity extends AppCompatActivity implements View.OnClickListener {
-    private ActivityChallengeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ActivityChallengeBinding binding;
         super.onCreate(savedInstanceState);
         binding = ActivityChallengeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

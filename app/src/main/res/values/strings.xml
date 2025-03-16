@@ -50,4 +50,7 @@
     <string name="et">Energi Terbarukan</string>
     <string name="ap">Adaptasi Perubahan</string>
     <string name="sampah">Sampah</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="email">Email</string>
+    <string name="simpan">Simpan</string>
 </resources>

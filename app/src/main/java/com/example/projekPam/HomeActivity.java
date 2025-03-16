@@ -22,6 +22,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         binding.leaderboard.setOnClickListener(this);
         binding.ecochallenge.setOnClickListener(this);
         binding.profile.setOnClickListener(this);
+        binding.avatar.setOnClickListener(this);
+        binding.tvName.setOnClickListener(this);
         binding.detail1.setOnClickListener(this);
         binding.detail2.setOnClickListener(this);
         binding.judulAgustus.setOnClickListener(this);
@@ -39,9 +41,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
         else if (id == R.id.ecochallenge)
             Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
-        else if (id == R.id.profile)
-            Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
-        else if (id == R.id.detail1 || id == R.id.judulAgustus) {
+        else if (id == R.id.profile || id == R.id.avatar || id == R.id.tvName) {
+            String username = binding.tvName.getText().toString();
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("USERNAME", username);
+            startActivity(intent);
+        } else if (id == R.id.detail1 || id == R.id.judulAgustus) {
             String title = binding.judulAgustus.getText().toString();
             Intent intent = new Intent(this, ChallengeActivity.class);
             intent.putExtra("TITLE", title);

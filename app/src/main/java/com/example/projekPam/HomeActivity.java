@@ -3,7 +3,6 @@ package com.example.projekPam;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,36 +24,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         binding.profile.setOnClickListener(this);
         binding.detail1.setOnClickListener(this);
         binding.detail2.setOnClickListener(this);
+        binding.judulAgustus.setOnClickListener(this);
+        binding.judulSeptember.setOnClickListener(this);
 
         String username = getIntent().getStringExtra("USERNAME");
-
-        TextView tvWelcome = findViewById(R.id.tvName);
-        tvWelcome.setText(username);
-//        if (username != null) {
-//            tvWelcome.setText(username); // Menampilkan username
-//        } else {
-//            tvWelcome.setText(Hi user!); // Default jika username tidak ada
-//        }
+        binding.tvName.setText(username);
     }
 
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.home) {
+        if (id == R.id.home)
             Toast.makeText(this, "Gunakan back untuk ke home!", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.leaderboard) {
+        else if (id == R.id.leaderboard)
             Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.ecochallenge) {
-            // Pindah ke ChallengeActivity
+        else if (id == R.id.ecochallenge)
+            Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
+        else if (id == R.id.profile)
+            Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
+        else if (id == R.id.detail1 || id == R.id.judulAgustus) {
+            String title = binding.judulAgustus.getText().toString();
             Intent intent = new Intent(this, ChallengeActivity.class);
+            intent.putExtra("TITLE", title);
             startActivity(intent);
-        } else if (id == R.id.profile) {
-            Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.detail1) {
-            // Pindah ke ChallengeActivity
+        } else if (id == R.id.detail2 || id == R.id.judulSeptember) {
+            String title = binding.judulSeptember.getText().toString();
             Intent intent = new Intent(this, ChallengeActivity.class);
+            intent.putExtra("TITLE", title);
             startActivity(intent);
-        } else if (id == R.id.detail2) {
-            Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
         }
     }
 }

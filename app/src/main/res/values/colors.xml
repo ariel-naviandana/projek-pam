@@ -10,8 +10,8 @@
     <color name="yellow">#FFD700</color>
     <color name="red">#FF0000</color>
     <color name="grey">#888888</color>
+    <color name="blue">#2650A2</color>
     <color name="gray">#4D4D4D</color>
     <color name="periode">#8B8B8B</color>
-    <color name="blue">#2650A2</color>
     <color name="light_blue">#E3F2FD</color>
 </resources>

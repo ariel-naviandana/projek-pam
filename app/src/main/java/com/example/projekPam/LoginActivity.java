@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (username.equals(validUsername) && password.equals(validPassword)) {
                 Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, HomeActivity.class);
+                intent.putExtra("USERNAME", username);
                 startActivity(intent);
                 finish();
             } else

@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".HeadActivity">
 
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imgMuka"
         android:layout_width="272dp"
@@ -31,6 +41,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="70dp"
         app:layout_constraintBottom_toTopOf="@+id/imgMuka"
+        app:layout_constraintTop_toBottomOf="@id/tvUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,11 +91,11 @@
         android:id="@+id/cbRambut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="114dp"
         android:checked="true"
         android:clickable="true"
-        android:text="Rambut"
+        android:text="@string/rambut"
         app:layout_constraintEnd_toStartOf="@+id/cbAlis"
         app:layout_constraintTop_toBottomOf="@+id/imgMuka" />
 
@@ -92,11 +103,11 @@
         android:id="@+id/cbAlis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="103dp"
         android:checked="true"
         android:clickable="true"
-        android:text="Alis"
+        android:text="@string/alis"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgMuka" />
 
@@ -108,7 +119,7 @@
         android:layout_marginEnd="121dp"
         android:checked="true"
         android:clickable="true"
-        android:text="Kumis"
+        android:text="@string/kumis"
         app:layout_constraintEnd_toStartOf="@+id/cbJanggut"
         app:layout_constraintTop_toBottomOf="@+id/cbRambut" />
 
@@ -120,7 +131,24 @@
         android:layout_marginEnd="74dp"
         android:checked="true"
         android:clickable="true"
-        android:text="Janggut"
+        android:text="@string/janggut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cbAlis" />
+
+    <Button
+        android:id="@+id/btnCall"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="18dp"
+        android:backgroundTint="@color/orange"
+        android:text="@string/contact_us"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cbJanggut" />
 </androidx.constraintlayout.widget.ConstraintLayout>

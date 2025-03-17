@@ -1,5 +1,7 @@
 package com.example.projekPam;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ public class HeadActivity extends AppCompatActivity implements View.OnClickListe
 
     private ActivityHeadBinding binding;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +22,10 @@ public class HeadActivity extends AppCompatActivity implements View.OnClickListe
         binding.cbAlis.setOnClickListener(this);
         binding.cbKumis.setOnClickListener(this);
         binding.cbJanggut.setOnClickListener(this);
+        binding.btnCall.setOnClickListener(this);
+
+        String username = getIntent().getStringExtra("EMAIL");
+        binding.tvUsername.setText("Welcome, " + username);
     }
 
     @Override
@@ -32,6 +39,10 @@ public class HeadActivity extends AppCompatActivity implements View.OnClickListe
             toggleVisibility(binding.imgKumis, binding.cbKumis.isChecked());
         else if (id == R.id.cbJanggut)
             toggleVisibility(binding.imgJanggut, binding.cbJanggut.isChecked());
+        else if (id == R.id.btnCall) {
+            Intent intent = new Intent(this, ContactActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void toggleVisibility(View view, boolean isVisible) {

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (email.equals("arielnaviandanaputra@gmail.com") && password.equals("235150701111010")) {
                 Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, HeadActivity.class);
+                intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 finish();
             } else

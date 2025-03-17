@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.home)
-            Toast.makeText(this, "Gunakan back untuk ke home!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Anda sudah di home, gunakan back untuk ke home!", Toast.LENGTH_SHORT).show();
         else if (id == R.id.leaderboard)
             Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
         else if (id == R.id.ecochallenge)

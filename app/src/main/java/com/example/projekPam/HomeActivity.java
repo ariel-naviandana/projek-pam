@@ -28,6 +28,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         binding.detail2.setOnClickListener(this);
         binding.judulAgustus.setOnClickListener(this);
         binding.judulSeptember.setOnClickListener(this);
+        binding.pengantar.setOnClickListener(this);
+        binding.gasRumahKaca.setOnClickListener(this);
+        binding.perubahanIklim.setOnClickListener(this);
+        binding.energiTerbarukan.setOnClickListener(this);
+        binding.adaptasiPerubahan.setOnClickListener(this);
 
         String username = getIntent().getStringExtra("USERNAME");
         binding.tvName.setText(username);
@@ -55,6 +60,26 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             String title = binding.judulSeptember.getText().toString();
             Intent intent = new Intent(this, ChallengeActivity.class);
             intent.putExtra("TITLE", title);
+            startActivity(intent);
+        } else if (id == R.id.pengantar) {
+            Intent intent = new Intent(this, MateriActivity.class);
+            intent.putExtra("TITLE", "Pengantar");
+            startActivity(intent);
+        } else if (id == R.id.gasRumahKaca) {
+            Intent intent = new Intent(this, MateriActivity.class);
+            intent.putExtra("TITLE", "Gas Rumah Kaca");
+            startActivity(intent);
+        } else if (id == R.id.perubahanIklim) {
+            Intent intent = new Intent(this, MateriActivity.class);
+            intent.putExtra("TITLE", "Perubahan Iklim");
+            startActivity(intent);
+        } else if (id == R.id.energiTerbarukan) {
+            Intent intent = new Intent(this, MateriActivity.class);
+            intent.putExtra("TITLE", "Energi Terbarukan");
+            startActivity(intent);
+        } else if (id == R.id.adaptasiPerubahan) {
+            Intent intent = new Intent(this, MateriActivity.class);
+            intent.putExtra("TITLE", "Adaptasi Perubahan");
             startActivity(intent);
         }
     }

@@ -14,4 +14,5 @@
     <color name="gray">#4D4D4D</color>
     <color name="periode">#8B8B8B</color>
     <color name="light_blue">#E3F2FD</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

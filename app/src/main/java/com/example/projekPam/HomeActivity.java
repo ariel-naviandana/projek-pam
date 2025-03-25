@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         binding.perubahanIklim.setOnClickListener(this);
         binding.energiTerbarukan.setOnClickListener(this);
         binding.adaptasiPerubahan.setOnClickListener(this);
+        binding.sampah.setOnClickListener(this);
 
         String username = getIntent().getStringExtra("USERNAME");
         binding.tvName.setText(username);
@@ -80,6 +81,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else if (id == R.id.adaptasiPerubahan) {
             Intent intent = new Intent(this, MateriActivity.class);
             intent.putExtra("TITLE", "Adaptasi Perubahan");
+            startActivity(intent);
+        } else if (id == R.id.sampah) {
+            Intent intent = new Intent(this, MateriActivity.class);
+            intent.putExtra("TITLE", "Sampah");
             startActivity(intent);
         }
     }

@@ -179,7 +179,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/white_bg">
 
                     <TextView
                         android:id="@+id/tvMateri"
@@ -294,14 +295,15 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="353dp">
+                    android:layout_height="353dp"
+                    android:background="@color/white_bg">
 
                     <TextView
                         android:id="@+id/tvChallenge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
-                        android:layout_marginTop="28dp"
+                        android:layout_marginTop="25dp"
                         android:text="@string/challenge"
                         android:textColor="#6A6A6A"
                         android:textSize="20sp"
@@ -325,7 +327,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:background="@color/white_bg">
 
                             <ImageView
                                 android:id="@+id/agustusImg"
@@ -405,7 +408,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:background="@color/white_bg">
 
                             <ImageView
                                 android:id="@+id/septemberImg"

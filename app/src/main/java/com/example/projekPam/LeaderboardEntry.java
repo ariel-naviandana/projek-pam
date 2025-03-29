@@ -1,10 +1,10 @@
 package com.example.projekPam;
 
 public class LeaderboardEntry {
-    private final String nama;
-    private final String username;
-    private final int skor;
-    private final int ranking;
+    private String nama;
+    private String username;
+    private int skor;
+    private int ranking;
 
     public LeaderboardEntry(String nama, String username, int skor, int ranking) {
         this.nama = nama;

@@ -43,8 +43,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         int id = view.getId();
         if (id == R.id.home)
             Toast.makeText(this, "Anda sudah di home, gunakan back untuk ke home.", Toast.LENGTH_SHORT).show();
-        else if (id == R.id.leaderboard)
-            Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
+        else if (id == R.id.leaderboard) {
+            Intent intent = new Intent(this, LeaderboardActivity.class);
+            startActivity(intent);
+        }
         else if (id == R.id.ecochallenge)
             Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
         else if (id == R.id.profile || id == R.id.avatar || id == R.id.tvName) {

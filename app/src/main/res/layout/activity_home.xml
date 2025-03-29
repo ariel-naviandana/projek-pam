@@ -499,7 +499,7 @@
             android:contentDescription="@string/home"
             android:focusable="true"
             android:onClick="onClick"
-            android:src="@drawable/ic_home"
+            android:src="@drawable/ic_home_active"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/leaderboard"
             app:layout_constraintStart_toStartOf="parent"

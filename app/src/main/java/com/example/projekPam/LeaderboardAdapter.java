@@ -1,10 +1,12 @@
 package com.example.projekPam;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.projekPam.databinding.ItemLeaderboardBinding;
 import java.util.List;
 
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.LeaderboardViewHolder> {
@@ -17,14 +19,22 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     @NonNull
     @Override
     public LeaderboardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemLeaderboardBinding binding = ItemLeaderboardBinding.inflate(inflater, parent, false);
-        return new LeaderboardViewHolder(binding);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_leaderboard, parent, false);
+        return new LeaderboardViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position) {
-        holder.bind(leaderboardList.get(position));
+        LeaderboardEntry entry = leaderboardList.get(position);
+
+        holder.tvRank.setText(String.valueOf(entry.getRanking()));
+        holder.tvName.setText(entry.getNama());
+        holder.tvUsername.setText(entry.getUsername());
+        holder.tvScore.setText(String.valueOf(entry.getSkor()));
+        holder.ivProfile.setImageResource(R.drawable.avatar);
+
+        holder.tvRank.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -38,16 +48,16 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
     }
 
     static class LeaderboardViewHolder extends RecyclerView.ViewHolder {
-        private final ItemLeaderboardBinding binding;
+        TextView tvRank, tvName, tvUsername, tvScore;
+        ImageView ivProfile;
 
-        public LeaderboardViewHolder(ItemLeaderboardBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-
-        public void bind(LeaderboardEntry entry) {
-            binding.setEntry(entry);
-            binding.executePendingBindings();
+        public LeaderboardViewHolder(View itemView) {
+            super(itemView);
+            tvRank = itemView.findViewById(R.id.tvRank);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvUsername = itemView.findViewById(R.id.tvUsername);
+            tvScore = itemView.findViewById(R.id.tvScore);
+            ivProfile = itemView.findViewById(R.id.ivProfile);
         }
     }
 }

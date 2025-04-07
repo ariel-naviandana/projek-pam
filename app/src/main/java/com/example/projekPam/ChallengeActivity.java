@@ -24,7 +24,7 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
 
         String title = getIntent().getStringExtra("TITLE");
         if (title != null)
-            binding.title.setText(title);
+            binding.tvChallengeTitle.setText(title);
 
         binding.btnBack.setOnClickListener(this);
 

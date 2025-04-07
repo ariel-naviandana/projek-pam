@@ -36,7 +36,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         binding.sampah.setOnClickListener(this);
 
         String username = getIntent().getStringExtra("USERNAME");
-        binding.tvName.setText(username);
+        if (username != null)
+            binding.tvName.setText(username);
     }
 
     public void onClick(View view) {

@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.projekPam.databinding.ActivityChallengeBinding;
 import java.util.ArrayList;
 import java.util.List;
-import com.example.projekPam.ProgressAdapter;
-import com.example.projekPam.ProgressItem;
 
 public class ChallengeActivity extends AppCompatActivity implements View.OnClickListener {
 

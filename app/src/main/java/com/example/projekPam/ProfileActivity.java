@@ -21,7 +21,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         binding.btnBack.setOnClickListener(this);
 
         String username = getIntent().getStringExtra("USERNAME");
-        binding.etUsername.setText(username);
+        if (username != null)
+            binding.etUsername.setText(username);
     }
 
     public void onClick(View view) {

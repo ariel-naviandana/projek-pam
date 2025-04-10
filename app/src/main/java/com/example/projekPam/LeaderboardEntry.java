@@ -13,19 +13,19 @@ public class LeaderboardEntry {
         this.ranking = ranking;
     }
 
-    public String getNama() {
-        return nama;
-    }
+    public String getNama() { return nama; }
 
-    public String getUsername() {
-        return username;
-    }
+    public void setNama(String nama) { this.nama = nama; }
 
-    public int getSkor() {
-        return skor;
-    }
+    public String getUsername() { return username; }
 
-    public int getRanking() {
-        return ranking;
-    }
+    public void setUsername(String username) { this.username = username; }
+
+    public int getSkor() { return skor; }
+
+    public void setSkor(int skor) { this.skor = skor; }
+
+    public int getRanking() { return ranking; }
+
+    public void setRanking(int ranking) { this.ranking = ranking; }
 }

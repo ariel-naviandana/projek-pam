@@ -11,27 +11,15 @@ public class ProgressItem {
         this.progress = progress;
     }
 
-    public String getLabel() {
-        return label;
-    }
+    public String getLabel() { return label; }
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
+    public void setLabel(String label) { this.label = label; }
 
-    public int getIconResId() {
-        return iconResId;
-    }
+    public int getIconResId() { return iconResId; }
 
-    public void setIconResId(int iconResId) {
-        this.iconResId = iconResId;
-    }
+    public void setIconResId(int iconResId) { this.iconResId = iconResId; }
 
-    public int getProgress() {
-        return progress;
-    }
+    public int getProgress() { return progress; }
 
-    public void setProgress(int progress) {
-        this.progress = progress;
-    }
+    public void setProgress(int progress) { this.progress = progress; }
 }

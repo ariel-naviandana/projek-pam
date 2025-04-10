@@ -8,12 +8,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
+import java.util.ArrayList;
 
 public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.ProgressViewHolder> {
-    private List<ProgressItem> progressItemList;
+    private ArrayList<ProgressItem> progressItemList;
 
-    public ProgressAdapter(List<ProgressItem> progressItemList) {
+    public ProgressAdapter(ArrayList<ProgressItem> progressItemList) {
         this.progressItemList = progressItemList;
     }
 
@@ -39,10 +39,9 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Progre
     }
 
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {
-        TextView tvLabel;
+        TextView tvLabel, tvPercent;
         ImageView ivIcon;
         ProgressBar progressBar;
-        TextView tvPercent;
 
         public ProgressViewHolder(View itemView) {
             super(itemView);

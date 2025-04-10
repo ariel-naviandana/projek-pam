@@ -101,329 +101,329 @@
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardGasRumahKaca"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginVertical="5dp"
-                app:cardCornerRadius="12dp"
-                android:clipToOutline="true"
-                app:cardBackgroundColor="@color/white">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardGasRumahKaca"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:layout_marginVertical="5dp"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                app:cardBackgroundColor="@color/white">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="5dp">-->
 
-                    <ImageView
-                        android:id="@+id/imgGasRumahKaca"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/fire_icon"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgGasRumahKaca"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:src="@drawable/fire_icon"/>-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_gravity="center">-->
 
-                        <TextView
-                            android:id="@+id/tvGasRumahKaca"
-                            android:layout_width="230dp"
-                            android:layout_height="wrap_content"
-                            android:text="Gas Rumah Kaca dan Dampaknya"
-                            android:layout_marginHorizontal="10dp"
-                            android:textSize="16sp"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvGasRumahKaca"-->
+<!--                            android:layout_width="230dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Gas Rumah Kaca dan Dampaknya"-->
+<!--                            android:layout_marginHorizontal="10dp"-->
+<!--                            android:textSize="16sp"/>-->
 
-                        <ImageView
-                            android:id="@+id/imgDownloadBarGSK"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/download_bar"/>
-                    </LinearLayout>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgDownloadBarGSK"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@drawable/download_bar"/>-->
+<!--                    </LinearLayout>-->
 
-                    <ImageView
-                        android:id="@+id/btnDownloadMateriGSK"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_download"
-                        android:layout_gravity="center"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/btnDownloadMateriGSK"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_download"-->
+<!--                        android:layout_gravity="center"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardPerubahanIklim"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginVertical="5dp"
-                app:cardCornerRadius="12dp"
-                android:clipToOutline="true"
-                app:cardBackgroundColor="@color/white">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardPerubahanIklim"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:layout_marginVertical="5dp"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                app:cardBackgroundColor="@color/white">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="5dp">-->
 
-                    <ImageView
-                        android:id="@+id/imgPerubahanIklim"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_earth"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgPerubahanIklim"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:src="@drawable/ic_earth"/>-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_gravity="center">-->
 
-                        <TextView
-                            android:id="@+id/tvPerubahanIklim"
-                            android:layout_width="230dp"
-                            android:layout_height="wrap_content"
-                            android:text="Bukti Perubahan Iklim pada Ekosistem"
-                            android:layout_marginHorizontal="10dp"
-                            android:textSize="16sp"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvPerubahanIklim"-->
+<!--                            android:layout_width="230dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Bukti Perubahan Iklim pada Ekosistem"-->
+<!--                            android:layout_marginHorizontal="10dp"-->
+<!--                            android:textSize="16sp"/>-->
 
-                        <ImageView
-                            android:id="@+id/imgDownloadBarPI"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/download_bar"/>
-                    </LinearLayout>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgDownloadBarPI"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@drawable/download_bar"/>-->
+<!--                    </LinearLayout>-->
 
-                    <ImageView
-                        android:id="@+id/btnDownloadMateriPI"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_download"
-                        android:layout_gravity="center"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/btnDownloadMateriPI"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_download"-->
+<!--                        android:layout_gravity="center"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardEnergiTerbarukan"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginVertical="5dp"
-                app:cardCornerRadius="12dp"
-                android:clipToOutline="true"
-                app:cardBackgroundColor="@color/white">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardEnergiTerbarukan"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:layout_marginVertical="5dp"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                app:cardBackgroundColor="@color/white">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="5dp">-->
 
-                    <ImageView
-                        android:id="@+id/imgEnergiTerbarukan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_electricity"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgEnergiTerbarukan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:src="@drawable/ic_electricity"/>-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_gravity="center">-->
 
-                        <TextView
-                            android:id="@+id/tvEnergiTerbarukan"
-                            android:layout_width="230dp"
-                            android:layout_height="wrap_content"
-                            android:text="Energi Terbarukan dan Perubahan Iklim"
-                            android:layout_marginHorizontal="10dp"
-                            android:textSize="16sp"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvEnergiTerbarukan"-->
+<!--                            android:layout_width="230dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Energi Terbarukan dan Perubahan Iklim"-->
+<!--                            android:layout_marginHorizontal="10dp"-->
+<!--                            android:textSize="16sp"/>-->
 
-                        <ImageView
-                            android:id="@+id/imgDownloadBarET"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/download_bar"/>
-                    </LinearLayout>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgDownloadBarET"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@drawable/download_bar"/>-->
+<!--                    </LinearLayout>-->
 
-                    <ImageView
-                        android:id="@+id/btnDownloadMateriET"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_download"
-                        android:layout_gravity="center"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/btnDownloadMateriET"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_download"-->
+<!--                        android:layout_gravity="center"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardAdaptasiMitigasi"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginVertical="5dp"
-                app:cardCornerRadius="12dp"
-                android:clipToOutline="true"
-                app:cardBackgroundColor="@color/white">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardAdaptasiMitigasi"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:layout_marginVertical="5dp"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                app:cardBackgroundColor="@color/white">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="5dp">-->
 
-                    <ImageView
-                        android:id="@+id/imgAdaptasiMitigasi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_umbrella"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgAdaptasiMitigasi"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:src="@drawable/ic_umbrella"/>-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_gravity="center">-->
 
-                        <TextView
-                            android:id="@+id/tvAdaptasiMitigasi"
-                            android:layout_width="230dp"
-                            android:layout_height="wrap_content"
-                            android:text="Adaptasi dan Mitigasi Perubahan Iklim"
-                            android:layout_marginHorizontal="10dp"
-                            android:textSize="16sp"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvAdaptasiMitigasi"-->
+<!--                            android:layout_width="230dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Adaptasi dan Mitigasi Perubahan Iklim"-->
+<!--                            android:layout_marginHorizontal="10dp"-->
+<!--                            android:textSize="16sp"/>-->
 
-                        <ImageView
-                            android:id="@+id/imgDownloadBarAM"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/download_bar"/>
-                    </LinearLayout>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgDownloadBarAM"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@drawable/download_bar"/>-->
+<!--                    </LinearLayout>-->
 
-                    <ImageView
-                        android:id="@+id/btnDownloadMateriAM"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_download"
-                        android:layout_gravity="center"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/btnDownloadMateriAM"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_download"-->
+<!--                        android:layout_gravity="center"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardPertanian"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginVertical="5dp"
-                app:cardCornerRadius="12dp"
-                android:clipToOutline="true"
-                app:cardBackgroundColor="@color/white">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardPertanian"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:layout_marginVertical="5dp"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                app:cardBackgroundColor="@color/white">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="5dp">-->
 
-                    <ImageView
-                        android:id="@+id/imgPertanian"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_ecofriendly"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgPertanian"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:src="@drawable/ic_ecofriendly"/>-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_gravity="center">-->
 
-                        <TextView
-                            android:id="@+id/tvPertanian"
-                            android:layout_width="230dp"
-                            android:layout_height="wrap_content"
-                            android:text="Perubahan Iklim dan Pertanian"
-                            android:layout_marginHorizontal="10dp"
-                            android:textSize="16sp"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvPertanian"-->
+<!--                            android:layout_width="230dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Perubahan Iklim dan Pertanian"-->
+<!--                            android:layout_marginHorizontal="10dp"-->
+<!--                            android:textSize="16sp"/>-->
 
-                        <ImageView
-                            android:id="@+id/imgDownloadBarP"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/download_bar"/>
-                    </LinearLayout>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgDownloadBarP"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@drawable/download_bar"/>-->
+<!--                    </LinearLayout>-->
 
-                    <ImageView
-                        android:id="@+id/btnDownloadMateriP"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_download"
-                        android:layout_gravity="center"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/btnDownloadMateriP"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_download"-->
+<!--                        android:layout_gravity="center"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardPeranHutan"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginVertical="5dp"
-                app:cardCornerRadius="12dp"
-                android:clipToOutline="true"
-                app:cardBackgroundColor="@color/white">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardPeranHutan"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:layout_marginVertical="5dp"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                android:clipToOutline="true"-->
+<!--                app:cardBackgroundColor="@color/white">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="5dp">-->
 
-                    <ImageView
-                        android:id="@+id/imgPeranHutan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_forest"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imgPeranHutan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:src="@drawable/ic_forest"/>-->
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_gravity="center">-->
 
-                        <TextView
-                            android:id="@+id/tvPeranHutan"
-                            android:layout_width="230dp"
-                            android:layout_height="wrap_content"
-                            android:text="Peran Hutan dalam Mengatasi Perubahan Iklim"
-                            android:layout_marginHorizontal="10dp"
-                            android:textSize="16sp"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvPeranHutan"-->
+<!--                            android:layout_width="230dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Peran Hutan dalam Mengatasi Perubahan Iklim"-->
+<!--                            android:layout_marginHorizontal="10dp"-->
+<!--                            android:textSize="16sp"/>-->
 
-                        <ImageView
-                            android:id="@+id/imgDownloadBarPH"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/download_bar"/>
-                    </LinearLayout>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgDownloadBarPH"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@drawable/download_bar"/>-->
+<!--                    </LinearLayout>-->
 
-                    <ImageView
-                        android:id="@+id/btnDownloadMateriPH"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_download"
-                        android:layout_gravity="center"/>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/btnDownloadMateriPH"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_download"-->
+<!--                        android:layout_gravity="center"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
         </LinearLayout>
     </ScrollView>
 

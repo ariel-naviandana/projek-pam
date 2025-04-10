@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/imgGasRumahKaca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/fire_icon"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tvGasRumahKaca"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:text="Gas Rumah Kaca dan Dampaknya"
+                android:layout_marginHorizontal="10dp"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:id="@+id/imgDownloadBarGSK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/download_bar"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnDownloadMateriGSK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_download"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

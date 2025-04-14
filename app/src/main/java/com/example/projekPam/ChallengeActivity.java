@@ -24,25 +24,21 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
 
         String title = getIntent().getStringExtra("TITLE");
         if (title != null)
-            binding.tvChallengeTitle.setText(title);
+            binding.title.setText(title);
 
-        binding.btnBack.setOnClickListener(this);
-        binding.fabTambahChallenge.setOnClickListener(this);
+        binding.fabAddChallenge.setOnClickListener(this);
 
         setupRecyclerView();
     }
 
     private void setupRecyclerView() {
         listChallenge = new ArrayList<>();
-        listChallenge.add(new Materi("Gas Rumah Kaca dan Dampaknya", R.drawable.fire_icon));
-        listChallenge.add(new Materi("Bukti Perubahan Iklim pada Ekosistem", R.drawable.ic_earth));
-        listChallenge.add(new Materi("Energi Terbarukan dan Perubahan Iklim", R.drawable.ic_electricity));
-        listChallenge.add(new Materi("Adaptasi dan Mitigasi Perubahan Iklim", R.drawable.ic_umbrella));
-        listChallenge.add(new Materi("Perubahan Iklim dan Pertanian", R.drawable.ic_ecofriendly));
+        listChallenge.add(new Challenge("Agustus Challenge Mengurangi Sampah Plastik", "1 - 10 Agustus",R.drawable.poster_challenge));
+        listChallenge.add(new Challenge("September Challenge Menanam Pohon", "4 - 16 September",R.drawable.poster_challenge2));
 
-        challengeAdapter = new MateriAdapter(listChallenge);
-        binding.rvDaftarChallenge.setLayoutManager(new LinearLayoutManager(this));
-        binding.rvDaftarChallenge.setAdapter(challengeAdapter);
+        challengeAdapter = new ChallengeAdapter(listChallenge);
+        binding.rvChallenges.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvChallenges.setAdapter(challengeAdapter);
     }
 
     public void onClick(View view) {
@@ -50,7 +46,7 @@ public class ChallengeActivity extends AppCompatActivity implements View.OnClick
         if (id == R.id.btnBack) {
             finish();
         }
-        else if (id == R.id.fabTambahChallenge) {
+        else if (id == R.id.fabAddChallenge) {
             //
         }
     }

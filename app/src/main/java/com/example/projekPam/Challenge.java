@@ -4,16 +4,16 @@ public class Challenge {
     private String id;
     private String title;
     private String period;
-    private String imageUrl;
+    private int image;
 
     // konstruktor kosong firebase
     public Challenge() {}
 
     // konstruktor dengan parameter
-    public Challenge(String title, String period, String imageUrl) {
+    public Challenge(String title, String period, int image) {
         this.title = title;
         this.period = period;
-        this.imageUrl = imageUrl;
+        this.image = image;
     }
 
     // getter setter
@@ -21,5 +21,5 @@ public class Challenge {
     public void setId(String id) { this.id = id; }
     public String getTitle() { return title; }
     public String getPeriod() { return period; }
-    public String getImageUrl() { return imageUrl; }
+    public int getImage() { return image; }
 }

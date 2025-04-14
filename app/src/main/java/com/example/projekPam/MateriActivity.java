@@ -59,12 +59,13 @@ public class MateriActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btnBackMateri) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
             finish();
         } else if (id == R.id.fabTambahMateri) {
-            // Tambahkan card baru ke RecyclerView
-            // listMateri.add(new Materi("Materi Baru", R.drawable.));
-            // materiAdapter.notifyItemInserted(listMateri.size() - 1);
-            // binding.rvDaftarMateri.smoothScrollToPosition(listMateri.size() - 1);
+            Intent intent = new Intent(this, AddMateriActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }

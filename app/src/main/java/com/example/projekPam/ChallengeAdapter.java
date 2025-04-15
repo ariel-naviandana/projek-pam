@@ -13,7 +13,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     private List<Challenge> challengeList;
 
     // Constructor
-    public ChallengeAdapter(List<Challenge> ChallengeList) {
+    public ChallengeAdapter(List<Challenge> challengeList) {
         this.challengeList = challengeList;
     }
 
@@ -29,8 +29,8 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     public void onBindViewHolder(@NonNull ChallengeViewHolder holder, int position) {
         Challenge challenge = challengeList.get(position);
         holder.binding.challengeTitle.setText(challenge.getTitle());
+        holder.binding.challengePeriod.setText(challenge.getPeriod());
         holder.binding.challengeImage.setImageResource(challenge.getImage());
-
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         return challengeList.size();
     }
 
-    public static class ChallengeViewHolder extends RecyclerView.ViewHolder {
+    public class ChallengeViewHolder extends RecyclerView.ViewHolder {
         ItemChallengeBinding binding;
 
         public ChallengeViewHolder(@NonNull ItemChallengeBinding binding) {

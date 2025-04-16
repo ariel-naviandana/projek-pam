@@ -1,5 +1,7 @@
 package com.example.projekPam;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,15 +9,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder> {
     private ArrayList<Question> questionList;
+    private FirebaseFirestore db;
+    private String quizId;
 
-    public QuestionAdapter(ArrayList<Question> questionList) {
+    public QuestionAdapter(ArrayList<Question> questionList, FirebaseFirestore db, String quizId) {
         this.questionList = questionList;
+        this.db = db;
+        this.quizId = quizId;
     }
 
     @NonNull
@@ -33,14 +42,34 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         holder.tvCorrectAnswer.setText("Jawaban Benar: " + question.getAnswer());
 
         holder.btnEditQuestion.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Edit soal: " + question.getQuestion(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(v.getContext(), QuestionFormActivity.class);
+            intent.putExtra("QUIZ_ID", quizId);
+            intent.putExtra("QUESTION_ID", question.getId());
+            v.getContext().startActivity(intent);
         });
 
         holder.btnDeleteQuestion.setOnClickListener(v -> {
-            questionList.remove(position);
-            notifyItemRemoved(position);
-            Toast.makeText(v.getContext(), "Soal dihapus.", Toast.LENGTH_SHORT).show();
+            showDeleteConfirmationDialog(v.getContext(), question, position);
         });
+    }
+
+    private void showDeleteConfirmationDialog(Context context, Question question, int position) {
+        new AlertDialog.Builder(context)
+                .setTitle("Konfirmasi Hapus")
+                .setMessage("Apakah Anda yakin ingin menghapus soal \"" + question.getQuestion() + "\"?")
+                .setPositiveButton("Hapus", (dialog, which) -> {
+                    db.collection("kuis").document(quizId).collection("soal").document(question.getId())
+                            .delete()
+                            .addOnSuccessListener(aVoid -> {
+                                questionList.remove(position);
+                                Toast.makeText(context, "Soal dihapus", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(context, "Gagal menghapus soal", Toast.LENGTH_SHORT).show()
+                            );
+                })
+                .setNegativeButton("Batal", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     @Override

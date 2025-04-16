@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.projekPam.databinding.ActivityQuizBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupFirestoreListener() {
-        db.collection("kuis").addSnapshotListener((value, error) -> {
+        db.collection("kuis").orderBy("created_at", Query.Direction.DESCENDING).addSnapshotListener((value, error) -> {
             if (error != null) {
                 Log.w("QuizActivity", "Listen failed.", error);
                 return;

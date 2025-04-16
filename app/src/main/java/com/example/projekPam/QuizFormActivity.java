@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.projekPam.databinding.ActivityQuizFormBinding;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -137,6 +138,7 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
         quiz.put("id_materi", selectedMateriId);
         quiz.put("deskripsi", description);
         quiz.put("kesulitan", difficulty);
+        quiz.put("created_at", Timestamp.now());
 
         if (quizId != null)
             db.collection("kuis").document(quizId)

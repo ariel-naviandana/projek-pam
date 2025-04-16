@@ -41,7 +41,10 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         holder.tvQuizQuestionCount.setText("Jumlah Soal: " + quiz.getQuestionCount());
 
         holder.btnSoal.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "List soal untuk " + quiz.getTitle(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(v.getContext(), QuestionActivity.class);
+            intent.putExtra("QUIZ_ID", quiz.getId());
+            intent.putExtra("QUIZ_TITLE", quiz.getTitle());
+            v.getContext().startActivity(intent);
         });
 
         holder.btnEdit.setOnClickListener(v -> {

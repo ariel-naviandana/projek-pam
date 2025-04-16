@@ -14,13 +14,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.projekPam.databinding.ActivityQuestionFormBinding;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class QuestionFormActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityQuestionFormBinding binding;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
+    private String quizId;
+    private String questionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +42,14 @@ public class QuestionFormActivity extends AppCompatActivity implements View.OnCl
         binding.btnBack.setOnClickListener(this);
         binding.btnSaveQuestion.setOnClickListener(this);
         binding.btnUploadImage.setOnClickListener(this);
+
+        quizId = getIntent().getStringExtra("QUIZ_ID");
+        questionId = getIntent().getStringExtra("QUESTION_ID");
+
+        if (questionId != null) {
+            binding.title.setText("Edit Soal");
+            loadQuestionData();
+        }
     }
 
     private void setupQuestionTypeSpinner() {
@@ -53,9 +70,8 @@ public class QuestionFormActivity extends AppCompatActivity implements View.OnCl
                 } else if (position == 1) {
                     binding.layoutTrueFalse.setVisibility(View.VISIBLE);
                     setupCorrectAnswerDropdown(new String[]{"Benar", "Salah"});
-                } else if (position == 2) {
+                } else if (position == 2)
                     binding.layoutShortAnswer.setVisibility(View.VISIBLE);
-                }
             }
 
             @Override
@@ -66,24 +82,22 @@ public class QuestionFormActivity extends AppCompatActivity implements View.OnCl
 
     private void setupCorrectAnswerDropdown(String[] options) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, options);
-        if (binding.layoutOptions.getVisibility() == View.VISIBLE) {
+        if (binding.layoutOptions.getVisibility() == View.VISIBLE)
             binding.spinnerCorrectAnswer.setAdapter(adapter);
-        } else if (binding.layoutTrueFalse.getVisibility() == View.VISIBLE) {
+        else if (binding.layoutTrueFalse.getVisibility() == View.VISIBLE)
             binding.spinnerTrueFalseAnswer.setAdapter(adapter);
-        }
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
 
-        if (id == R.id.btnBack) {
+        if (id == R.id.btnBack)
             finish();
-        } else if (id == R.id.btnSaveQuestion) {
+        else if (id == R.id.btnSaveQuestion)
             saveQuestion();
-        } else if (id == R.id.btnUploadImage) {
+        else if (id == R.id.btnUploadImage)
             openImagePicker();
-        }
     }
 
     private void openImagePicker() {
@@ -107,6 +121,58 @@ public class QuestionFormActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+    private void loadQuestionData() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("kuis").document(quizId).collection("soal").document(questionId)
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        binding.etQuestion.setText(document.getString("pertanyaan"));
+                        String questionType = document.getString("tipe");
+                        binding.spinnerQuestionType.setSelection(getTypeIndex(questionType));
+
+                        switch (questionType) {
+                            case "Pilihan Ganda":
+                                    ArrayList<String> pilihan = (ArrayList<String>) document.get("pilihan");
+                                    if (pilihan != null && pilihan.size() >= 4) {
+                                        binding.etOptionA.setText(pilihan.get(0));
+                                        binding.etOptionB.setText(pilihan.get(1));
+                                        binding.etOptionC.setText(pilihan.get(2));
+                                        binding.etOptionD.setText(pilihan.get(3));
+                                    }
+                                    binding.spinnerCorrectAnswer.setSelection(getAnswerIndex(document.getString("jawaban"), new String[]{"A", "B", "C", "D"}));
+                                break;
+                            case "Benar/Salah":
+                                binding.spinnerTrueFalseAnswer.setSelection(getAnswerIndex(document.getString("jawaban"), new String[]{"Benar", "Salah"}));
+                                break;
+                            case "Isian Singkat":
+                                binding.etShortAnswer.setText(document.getString("jawaban"));
+                                break;
+                        }
+                    }
+                });
+    }
+
+    private int getTypeIndex(String type) {
+        switch (type) {
+            case "Pilihan Ganda":
+                return 0;
+            case "Benar/Salah":
+                return 1;
+            case "Isian Singkat":
+                return 2;
+            default:
+                return 0;
+        }
+    }
+
+    private int getAnswerIndex(String answer, String[] options) {
+        for (int i = 0; i < options.length; i++)
+            if (options[i].equals(answer))
+                return i;
+        return 0;
+    }
+
     private void saveQuestion() {
         String question = binding.etQuestion.getText().toString().trim();
         String questionType = binding.spinnerQuestionType.getSelectedItem().toString();
@@ -116,25 +182,58 @@ public class QuestionFormActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
-        if (questionType.equals("Pilihan Ganda")) {
-            String optionA = binding.etOptionA.getText().toString().trim();
-            String optionB = binding.etOptionB.getText().toString().trim();
-            String optionC = binding.etOptionC.getText().toString().trim();
-            String optionD = binding.etOptionD.getText().toString().trim();
+        Map<String, Object> questionData = new HashMap<>();
+        questionData.put("pertanyaan", question);
+        questionData.put("tipe", questionType);
+        questionData.put("created_at", Timestamp.now());
 
-            if (optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty() || optionD.isEmpty()) {
-                Toast.makeText(this, "Semua opsi jawaban harus diisi", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        if (questionType.equals("Pilihan Ganda")) {
+            List<String> pilihan = Arrays.asList(
+                    binding.etOptionA.getText().toString().trim(),
+                    binding.etOptionB.getText().toString().trim(),
+                    binding.etOptionC.getText().toString().trim(),
+                    binding.etOptionD.getText().toString().trim()
+            );
+
+            for (String option : pilihan)
+                if (option.isEmpty()) {
+                    Toast.makeText(this, "Semua opsi jawaban harus diisi", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            questionData.put("pilihan", pilihan);
+            questionData.put("jawaban", binding.spinnerCorrectAnswer.getSelectedItem().toString());
+        } else if (questionType.equals("Benar/Salah")) {
+            questionData.put("jawaban", binding.spinnerTrueFalseAnswer.getSelectedItem().toString());
         } else if (questionType.equals("Isian Singkat")) {
             String shortAnswer = binding.etShortAnswer.getText().toString().trim();
             if (shortAnswer.isEmpty()) {
                 Toast.makeText(this, "Jawaban isian singkat tidak boleh kosong", Toast.LENGTH_SHORT).show();
                 return;
             }
+            questionData.put("jawaban", shortAnswer);
         }
 
-        Toast.makeText(this, "Soal berhasil disimpan", Toast.LENGTH_SHORT).show();
-        finish();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (questionId != null)
+            db.collection("kuis").document(quizId).collection("soal").document(questionId)
+                    .set(questionData)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Soal berhasil diperbarui", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(this, "Gagal memperbarui soal", Toast.LENGTH_SHORT).show()
+                    );
+        else
+            db.collection("kuis").document(quizId).collection("soal")
+                    .add(questionData)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(this, "Soal berhasil disimpan", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(this, "Gagal menyimpan soal", Toast.LENGTH_SHORT).show()
+                    );
     }
 }

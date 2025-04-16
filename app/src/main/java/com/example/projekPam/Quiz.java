@@ -5,13 +5,15 @@ public class Quiz {
     private String title;
     private String category;
     private String difficulty;
+    private String description;
     private int questionCount;
 
-    public Quiz(String id, String title, String category, String difficulty, int questionCount) {
+    public Quiz(String id, String title, String category, String difficulty, String description, int questionCount) {
         this.id = id;
         this.title = title;
         this.category = category;
         this.difficulty = difficulty;
+        this.description = description;
         this.questionCount = questionCount;
     }
 
@@ -28,6 +30,8 @@ public class Quiz {
     public String getDifficulty() {
         return difficulty;
     }
+
+    public String getDescription() { return description; }
 
     public int getQuestionCount() {
         return questionCount;

@@ -1,6 +1,7 @@
 package com.example.projekPam;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,13 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         });
 
         holder.btnEdit.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Edit " + quiz.getTitle(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(v.getContext(), QuizFormActivity.class);
+            intent.putExtra("QUIZ_ID", quiz.getId());
+            intent.putExtra("QUIZ_TITLE", quiz.getTitle());
+            intent.putExtra("QUIZ_CATEGORY", quiz.getCategory());
+            intent.putExtra("QUIZ_DIFFICULTY", quiz.getDifficulty());
+            intent.putExtra("QUIZ_DESCRIPTION", quiz.getDescription());
+            v.getContext().startActivity(intent);
         });
 
         holder.btnDelete.setOnClickListener(v -> {
@@ -57,7 +64,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
                 .setTitle("Konfirmasi Hapus")
                 .setMessage("Apakah Anda yakin ingin menghapus kuis \"" + quiz.getTitle() + "\"?")
                 .setPositiveButton("Hapus", (dialog, which) -> {
-                    // Delete from Firestore using id
                     db.collection("kuis").document(quiz.getId())
                             .delete()
                             .addOnSuccessListener(aVoid -> {

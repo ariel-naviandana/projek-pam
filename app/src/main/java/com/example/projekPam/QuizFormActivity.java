@@ -19,9 +19,10 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
     private ActivityQuizFormBinding binding;
     private FirebaseFirestore db;
 
+    private String quizId = null;
+    private String selectedMateriId = null;
     private ArrayList<String> materiTitles = new ArrayList<>();
     private ArrayList<String> materiIds = new ArrayList<>();
-    private String selectedMateriId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,12 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
 
         binding.btnBack.setOnClickListener(this);
         binding.btnSaveQuiz.setOnClickListener(this);
+
+        if (getIntent().hasExtra("QUIZ_ID")) {
+            quizId = getIntent().getStringExtra("QUIZ_ID");
+            selectedMateriId = getIntent().getStringExtra("QUIZ_CATEGORY_ID");
+            populateFormData();
+        }
     }
 
     private void setupDifficultySpinner() {
@@ -71,21 +78,43 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
                                 selectedMateriId = null;
                             }
                         });
-                    } else {
+
+                        if (quizId != null && selectedMateriId != null)
+                            setSpinnerSelectionForMateri();
+                    } else
                         Toast.makeText(this, "Gagal memuat data materi", Toast.LENGTH_SHORT).show();
-                    }
                 });
+    }
+
+    private void setSpinnerSelectionForMateri() {
+        int index = materiIds.indexOf(selectedMateriId);
+        if (index != -1)
+            binding.spinnerCategory.setSelection(index);
+    }
+
+    private void populateFormData() {
+        binding.title.setText("Edit Kuis");
+        binding.etQuizName.setText(getIntent().getStringExtra("QUIZ_TITLE"));
+        binding.etQuizDescription.setText(getIntent().getStringExtra("QUIZ_DESCRIPTION"));
+        binding.spinnerDifficulty.setSelection(getDifficultyIndex(getIntent().getStringExtra("QUIZ_DIFFICULTY")));
+    }
+
+    private int getDifficultyIndex(String difficulty) {
+        String[] difficultyLevels = {"Mudah", "Sedang", "Sulit"};
+        for (int i = 0; i < difficultyLevels.length; i++)
+            if (difficultyLevels[i].equalsIgnoreCase(difficulty))
+                return i;
+        return 0;
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
 
-        if (id == R.id.btnBack) {
+        if (id == R.id.btnBack)
             finish();
-        } else if (id == R.id.btnSaveQuiz) {
+        else if (id == R.id.btnSaveQuiz)
             saveQuizToFirestore();
-        }
     }
 
     private void saveQuizToFirestore() {
@@ -108,14 +137,25 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
         quiz.put("deskripsi", description);
         quiz.put("kesulitan", difficulty);
 
-        db.collection("kuis")
-                .add(quiz)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(this, "Kuis berhasil disimpan", Toast.LENGTH_SHORT).show();
-                    finish();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Gagal menyimpan kuis", Toast.LENGTH_SHORT).show();
-                });
+        if (quizId != null)
+            db.collection("kuis").document(quizId)
+                    .set(quiz)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Kuis berhasil diperbarui", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Gagal memperbarui kuis", Toast.LENGTH_SHORT).show();
+                    });
+        else
+            db.collection("kuis")
+                    .add(quiz)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(this, "Kuis berhasil disimpan", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Gagal menyimpan kuis", Toast.LENGTH_SHORT).show();
+                    });
     }
 }

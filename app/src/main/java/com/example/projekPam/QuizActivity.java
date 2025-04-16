@@ -56,6 +56,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                     String title = quizDocument.getString("judul");
                     String idMateri = quizDocument.getString("id_materi");
                     String difficulty = quizDocument.getString("kesulitan");
+                    String deskripsi = quizDocument.getString("deskripsi");
 
                     db.collection("materi").document(idMateri).get()
                             .addOnSuccessListener(materiDocument -> {
@@ -67,11 +68,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                                             if (soalTask.isSuccessful()) {
                                                 int questionCount = soalTask.getResult().size();
 
-                                                quizList.add(new Quiz(quizId, title, materiTitle, difficulty, questionCount));
+                                                quizList.add(new Quiz(quizId, title, materiTitle, difficulty, deskripsi, questionCount));
                                                 quizAdapter.updateQuizList(quizList);
-                                            } else {
-                                                Log.w("QuizActivity", "Error getting soal count.", soalTask.getException());
-                                            }
+                                            } else
+                                                Log.w("QuizActivity", "Error getting soal.", soalTask.getException());
                                         });
                             })
                             .addOnFailureListener(e -> Log.w("QuizActivity", "Error fetching materi title.", e));

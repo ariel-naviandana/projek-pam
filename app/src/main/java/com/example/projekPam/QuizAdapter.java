@@ -1,5 +1,6 @@
 package com.example.projekPam;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,15 +8,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
     private ArrayList<Quiz> quizList;
+    private FirebaseFirestore db;
 
-    public QuizAdapter(ArrayList<Quiz> quizList) {
+    public QuizAdapter(ArrayList<Quiz> quizList, FirebaseFirestore db) {
         this.quizList = quizList;
+        this.db = db;
     }
 
     @NonNull
@@ -34,7 +40,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         holder.tvQuizQuestionCount.setText("Jumlah Soal: " + quiz.getQuestionCount());
 
         holder.btnSoal.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Edit " + quiz.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), "List soal untuk " + quiz.getTitle(), Toast.LENGTH_SHORT).show();
         });
 
         holder.btnEdit.setOnClickListener(v -> {
@@ -42,10 +48,29 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         });
 
         holder.btnDelete.setOnClickListener(v -> {
-            quizList.remove(position);
-            notifyItemRemoved(position);
-            Toast.makeText(v.getContext(), quiz.getTitle() + " dihapus", Toast.LENGTH_SHORT).show();
+            showDeleteConfirmationDialog(v.getContext(), quiz, position);
         });
+    }
+
+    private void showDeleteConfirmationDialog(Context context, Quiz quiz, int position) {
+        new AlertDialog.Builder(context)
+                .setTitle("Konfirmasi Hapus")
+                .setMessage("Apakah Anda yakin ingin menghapus kuis \"" + quiz.getTitle() + "\"?")
+                .setPositiveButton("Hapus", (dialog, which) -> {
+                    // Delete from Firestore using id
+                    db.collection("kuis").document(quiz.getId())
+                            .delete()
+                            .addOnSuccessListener(aVoid -> {
+                                quizList.remove(position);
+                                notifyItemRemoved(position);
+                                Toast.makeText(context, quiz.getTitle() + " dihapus", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(context, "Gagal menghapus kuis", Toast.LENGTH_SHORT).show();
+                            });
+                })
+                .setNegativeButton("Batal", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     public void updateQuizList(ArrayList<Quiz> newQuizList) {

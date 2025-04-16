@@ -29,7 +29,6 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
         binding = ActivityQuizFormBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize Firestore
         db = FirebaseFirestore.getInstance();
 
         setupDifficultySpinner();
@@ -46,7 +45,6 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void loadMateriData() {
-        // Fetch materi data from Firestore
         db.collection("materi")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -59,11 +57,9 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
                             materiTitles.add(materiTitle);
                         }
 
-                        // Set up the dropdown (Spinner) for Materi
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, materiTitles);
                         binding.spinnerCategory.setAdapter(adapter);
 
-                        // Handle selection
                         binding.spinnerCategory.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(android.widget.AdapterView<?> parent, android.view.View view, int position, long id) {
@@ -108,7 +104,7 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
 
         Map<String, Object> quiz = new HashMap<>();
         quiz.put("judul", quizName);
-        quiz.put("id_materi", selectedMateriId); // Save selected materi ID
+        quiz.put("id_materi", selectedMateriId);
         quiz.put("deskripsi", description);
         quiz.put("kesulitan", difficulty);
 

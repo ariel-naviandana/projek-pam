@@ -67,22 +67,36 @@
             android:onClick="onClick"
             android:src="@drawable/ic_home"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/quiz"
+            app:layout_constraintEnd_toStartOf="@+id/materi"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/quiz"
-            android:layout_width="100dp"
+            android:id="@+id/materi"
+            android:layout_width="60dp"
             android:layout_height="50dp"
             android:clickable="true"
             android:contentDescription="@string/quiz"
             android:focusable="true"
             android:onClick="onClick"
-            android:src="@drawable/ic_ecochallenge"
+            android:src="@drawable/ic_materi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/quiz"
+            app:layout_constraintStart_toEndOf="@+id/home"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/quiz"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:contentDescription="@string/quiz"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_kuis_active"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/challenge"
-            app:layout_constraintStart_toEndOf="@+id/home"
+            app:layout_constraintStart_toEndOf="@+id/materi"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -120,10 +134,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_plus"
+        android:src="@drawable/ic_add"
         android:contentDescription="Tambah Soal"
-        app:backgroundTint="@color/primary"
-        android:tint="@color/white"
+        android:backgroundTint="@color/secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

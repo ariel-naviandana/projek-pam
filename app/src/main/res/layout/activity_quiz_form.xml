@@ -93,25 +93,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kategori"
+                    android:text="Kategori Materi"
                     android:textStyle="bold"
                     android:textSize="14sp"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="12dp"/>
 
-                <EditText
-                    android:id="@+id/etQuizCategory"
+                <Spinner
+                    android:id="@+id/spinnerCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Masukkan kategori kuis"
-                    android:background="@drawable/rounded_edit_text"
-                    android:textSize="14sp"
-                    android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
-                    android:padding="12dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="12dp"/>
+                    android:layout_marginHorizontal="12dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:padding="12dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"

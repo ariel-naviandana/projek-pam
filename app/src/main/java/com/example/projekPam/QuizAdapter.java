@@ -48,6 +48,11 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         });
     }
 
+    public void updateQuizList(ArrayList<Quiz> newQuizList) {
+        this.quizList = newQuizList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return quizList.size();

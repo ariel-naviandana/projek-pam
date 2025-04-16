@@ -36,7 +36,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     public void onBindViewHolder(@NonNull QuizViewHolder holder, int position) {
         Quiz quiz = quizList.get(position);
         holder.tvQuizTitle.setText(quiz.getTitle());
-        holder.tvQuizCategory.setText("Kategori: " + quiz.getCategory());
+        holder.tvQuizMateri.setText("Materi: " + quiz.getMateriTitle());
         holder.tvQuizDifficulty.setText("Kesulitan: " + quiz.getDifficulty());
         holder.tvQuizQuestionCount.setText("Jumlah Soal: " + quiz.getQuestionCount());
 
@@ -46,11 +46,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
         holder.btnEdit.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), QuizFormActivity.class);
-            intent.putExtra("QUIZ_ID", quiz.getId());
-            intent.putExtra("QUIZ_TITLE", quiz.getTitle());
-            intent.putExtra("QUIZ_CATEGORY", quiz.getCategory());
-            intent.putExtra("QUIZ_DIFFICULTY", quiz.getDifficulty());
-            intent.putExtra("QUIZ_DESCRIPTION", quiz.getDescription());
+            intent.putExtra("QUIZ_OBJECT", quiz);
             v.getContext().startActivity(intent);
         });
 
@@ -90,13 +86,13 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
     }
 
     public static class QuizViewHolder extends RecyclerView.ViewHolder {
-        TextView tvQuizTitle, tvQuizCategory, tvQuizDifficulty, tvQuizQuestionCount;
+        TextView tvQuizTitle, tvQuizMateri, tvQuizDifficulty, tvQuizQuestionCount;
         View btnEdit, btnDelete, btnSoal;
 
         public QuizViewHolder(@NonNull View itemView) {
             super(itemView);
             tvQuizTitle = itemView.findViewById(R.id.tvQuizTitle);
-            tvQuizCategory = itemView.findViewById(R.id.tvQuizCategory);
+            tvQuizMateri = itemView.findViewById(R.id.tvQuizMateri);
             tvQuizDifficulty = itemView.findViewById(R.id.tvQuizDifficulty);
             tvQuizQuestionCount = itemView.findViewById(R.id.tvQuizQuestionCount);
             btnEdit = itemView.findViewById(R.id.btnEdit);

@@ -38,10 +38,11 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
         binding.btnBack.setOnClickListener(this);
         binding.btnSaveQuiz.setOnClickListener(this);
 
-        if (getIntent().hasExtra("QUIZ_ID")) {
-            quizId = getIntent().getStringExtra("QUIZ_ID");
-            selectedMateriId = getIntent().getStringExtra("QUIZ_CATEGORY_ID");
-            populateFormData();
+        Quiz quiz = getIntent().getParcelableExtra("QUIZ_OBJECT");
+        if (quiz != null) {
+            quizId = quiz.getId();
+            selectedMateriId = quiz.getIdMateri();
+            populateFormData(quiz);
         }
     }
 
@@ -92,11 +93,11 @@ public class QuizFormActivity extends AppCompatActivity implements View.OnClickL
             binding.spinnerCategory.setSelection(index);
     }
 
-    private void populateFormData() {
+    private void populateFormData(Quiz quiz) {
         binding.title.setText("Edit Kuis");
-        binding.etQuizName.setText(getIntent().getStringExtra("QUIZ_TITLE"));
-        binding.etQuizDescription.setText(getIntent().getStringExtra("QUIZ_DESCRIPTION"));
-        binding.spinnerDifficulty.setSelection(getDifficultyIndex(getIntent().getStringExtra("QUIZ_DIFFICULTY")));
+        binding.etQuizName.setText(quiz.getTitle());
+        binding.etQuizDescription.setText(quiz.getDescription());
+        binding.spinnerDifficulty.setSelection(getDifficultyIndex(quiz.getDifficulty()));
     }
 
     private int getDifficultyIndex(String difficulty) {

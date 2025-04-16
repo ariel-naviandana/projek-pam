@@ -68,7 +68,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                                             if (soalTask.isSuccessful()) {
                                                 int questionCount = soalTask.getResult().size();
 
-                                                quizList.add(new Quiz(quizId, title, materiTitle, difficulty, deskripsi, questionCount));
+                                                quizList.add(new Quiz(quizId, title, idMateri, materiTitle, difficulty, deskripsi, questionCount));
                                                 quizAdapter.updateQuizList(quizList);
                                             } else
                                                 Log.w("QuizActivity", "Error getting soal.", soalTask.getException());

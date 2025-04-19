@@ -7,12 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
+import java.util.List;
 
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.LeaderboardViewHolder> {
-    private ArrayList<LeaderboardEntry> leaderboardList;
+    private List<LeaderboardEntry> leaderboardList;
 
-    public LeaderboardAdapter(ArrayList<LeaderboardEntry> leaderboardList) {
+    public LeaderboardAdapter(List<LeaderboardEntry> leaderboardList) {
         this.leaderboardList = leaderboardList;
     }
 
@@ -34,6 +34,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         holder.ivProfile.setImageResource(R.drawable.avatar);
 
         holder.tvRank.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -41,7 +42,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         return leaderboardList.size();
     }
 
-    public void updateData(ArrayList<LeaderboardEntry> newList) {
+    public void updateData(List<LeaderboardEntry> newList) {
         leaderboardList = newList;
         notifyDataSetChanged();
     }

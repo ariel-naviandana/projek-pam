@@ -2,71 +2,140 @@ package com.example.projekPam;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.projekPam.databinding.ActivityProfileUtamaBinding;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileUtamaActivity extends AppCompatActivity implements View.OnClickListener {
-    private ActivityProfileUtamaBinding binding;
-    private ProfileAdapter adapter;
+public class ProfileUtamaActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerViewFriends, recyclerViewAddFriends;
+    private FirebaseFirestore db;
+    private String currentUserId = "userId123";
+    private List<Friend> friendsList;
+    private List<Friend> potentialFriendsList;
+    private Button editProfileButton;
+    private TextView usernameText, emailText, xpText, coinText;
+    private ImageView avatarImage, ivXp, ivKoin;
+    private FriendAdapter friendAdapter;
+    private AddFriendAdapter addFriendAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityProfileUtamaBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_profile_utama);
 
-        List<DaftarTemanEntry> DaftarTemanEntries = new ArrayList<>();
-        DaftarTemanEntries.add(new DaftarTemanEntry("Alice", "@alice1"));
-        DaftarTemanEntries.add(new DaftarTemanEntry("Bob", "@bob1"));
-        DaftarTemanEntries.add(new DaftarTemanEntry("Charlie", "@charlie1"));
-        DaftarTemanEntries.add(new DaftarTemanEntry("David", "@david1"));
-        DaftarTemanEntries.add(new DaftarTemanEntry("Eve", "@eve1"));
-        DaftarTemanEntries.add(new DaftarTemanEntry("Feri", "@feri1"));
-        DaftarTemanEntries.add(new DaftarTemanEntry("Geo", "@geo1"));
-        DaftarTemanEntries.add(new DaftarTemanEntry("Harry", "@harry1"));
-        DaftarTemanEntries.add(new DaftarTemanEntry("Ivy", "@ivy1"));
-        DaftarTemanEntries.add(new DaftarTemanEntry("Jemima", "@jem1"));
+        recyclerViewFriends = findViewById(R.id.recyclerViewDaftarTeman);
+        recyclerViewAddFriends = findViewById(R.id.recyclerViewTambahTeman);
+        editProfileButton = findViewById(R.id.btnEditProfile);
+        usernameText = findViewById(R.id.username);
+        emailText = findViewById(R.id.email);
+        xpText = findViewById(R.id.exp25);
+        coinText = findViewById(R.id.tvLives);
+        avatarImage = findViewById(R.id.ivAvatar);
+        ivXp = findViewById(R.id.ivXp);
+        ivKoin = findViewById(R.id.ivKoin);
 
-        adapter = new ProfileAdapter(DaftarTemanEntries);
+        db = FirebaseFirestore.getInstance();
+        friendsList = new ArrayList<>();
+        potentialFriendsList = new ArrayList<>();
 
-        binding.recyclerViewDaftarTeman.setLayoutManager(new LinearLayoutManager(this));
-        binding.recyclerViewDaftarTeman.setAdapter(adapter);
+        friendAdapter = new FriendAdapter(this, friendsList, currentUserId);
+        recyclerViewFriends.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewFriends.setAdapter(friendAdapter);
 
-        binding.btnEditProfile.setOnClickListener(this);
-        binding.home.setOnClickListener(this);
-        binding.leaderboard.setOnClickListener(this);
-        binding.ecochallenge.setOnClickListener(this);
-        binding.profile.setOnClickListener(this);
+        addFriendAdapter = new AddFriendAdapter(this, potentialFriendsList, currentUserId);
+        recyclerViewAddFriends.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewAddFriends.setAdapter(addFriendAdapter);
+
+        loadProfile();
+        loadFriendsList();
+        loadPotentialFriendsList();
+
+        editProfileButton.setOnClickListener(view -> {
+            startActivity(new Intent(ProfileUtamaActivity.this, ProfileActivity.class));
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
+    private void loadProfile() {
+        db.collection("users").document(currentUserId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String username = documentSnapshot.getString("username");
+                        String email = documentSnapshot.getString("email");
+                        Long xp = documentSnapshot.getLong("xp");
+                        Long coin = documentSnapshot.getLong("coin");
 
-        if (id == R.id.home) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.leaderboard) {
-            Intent intent = new Intent(this, LeaderboardActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.ecochallenge) {
-            Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.btnEditProfile) {
-            String username = "@username";
-            Intent intent = new Intent(this, ProfileActivity.class);
-            intent.putExtra("USERNAME", username);
-            startActivity(intent);
-        }
+                        usernameText.setText(username != null ? username : "-");
+                        emailText.setText(email != null ? email : "-");
+                        xpText.setText(xp != null ? String.valueOf(xp) : "0");
+                        coinText.setText(coin != null ? String.valueOf(coin) : "0");
+
+                        avatarImage.setImageResource(R.drawable.avatar);
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("ProfileLoad", "Gagal memuat profil: " + e.getMessage()));
+    }
+
+    private void loadFriendsList() {
+        db.collection("users").document(currentUserId)
+                .collection("friends")
+                .addSnapshotListener((snapshots, e) -> {
+                    if (e != null) {
+                        Log.e("FriendLoad", "Listen failed.", e);
+                        return;
+                    }
+
+                    friendsList.clear();
+                    for (DocumentSnapshot document : snapshots) {
+                        String id = document.getId();
+                        String username = document.getString("username");
+                        String fullname = document.getString("fullname");
+
+                        friendsList.add(new Friend(id, username, fullname));
+                    }
+                    friendAdapter.notifyDataSetChanged();
+                });
+    }
+
+    public void addFriendToFriendsList(Friend friend) {
+        potentialFriendsList.remove(friend);
+        friendAdapter.notifyDataSetChanged();
+        addFriendAdapter.notifyDataSetChanged();
+    }
+
+    public void addPotentialFriendBack(Friend friend) {
+        potentialFriendsList.add(friend);
+        addFriendAdapter.notifyDataSetChanged();
+    }
+
+    private void loadPotentialFriendsList() {
+        db.collection("users")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    potentialFriendsList.clear();
+                    for (DocumentSnapshot document : querySnapshot) {
+                        String id = document.getId();
+                        if (!id.equals(currentUserId)) {
+                            String username = document.getString("username");
+                            String fullname = document.getString("fullname");
+                            potentialFriendsList.add(new Friend(id, username, fullname));
+                        }
+                    }
+                    addFriendAdapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> Log.e("PotentialLoad", "Gagal memuat daftar calon teman: " + e.getMessage()));
     }
 }

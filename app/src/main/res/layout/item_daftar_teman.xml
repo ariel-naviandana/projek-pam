@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:maxLines="1"
             android:textColor="@android:color/black"/>
 
         <TextView
@@ -40,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
+            android:maxLines="1"
             android:textColor="@android:color/darker_gray"/>
 
     </LinearLayout>
@@ -55,10 +57,10 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
-            android:id="@+id/cancel"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/cancel"
-            android:contentDescription="Cancel"/>
+            android:id="@+id/unfoll"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_unfollow"
+            android:contentDescription="Unfollow friend"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

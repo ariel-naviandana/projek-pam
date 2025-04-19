@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
         else if (id == R.id.profile || id == R.id.avatar || id == R.id.tvName) {
             String username = binding.tvName.getText().toString();
-            Intent intent = new Intent(this, ProfileActivity.class);
+            Intent intent = new Intent(this, ProfileUtamaActivity.class);
             intent.putExtra("USERNAME", username);
             startActivity(intent);
         } else if (id == R.id.detail1 || id == R.id.judulAgustus) {

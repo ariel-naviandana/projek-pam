@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "702915877728",
+    "project_id": "ecokids-8e4ca",
+    "storage_bucket": "ecokids-8e4ca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702915877728:android:98ef8adf07df46e460dc05",
+        "android_client_info": {
+          "package_name": "com.example.projekPam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoNnQRkzB1JmhTMsZKktESHE_-yoxaQo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702915877728:android:9be611fd94d3984e60dc05",
+        "android_client_info": {
+          "package_name": "com.pam.ecokids"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoNnQRkzB1JmhTMsZKktESHE_-yoxaQo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,6 +3,7 @@ package com.example.projekPam;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +54,11 @@ public class MateriActivity extends AppCompatActivity implements View.OnClickLis
         materiAdapter = new MateriAdapter(listMateri);
         binding.rvDaftarMateri.setLayoutManager(new LinearLayoutManager(this));
         binding.rvDaftarMateri.setAdapter(materiAdapter);
+
+        // Tambahkan listener item klik
+        materiAdapter.setOnItemClickListener(materi ->
+                Toast.makeText(MateriActivity.this, materi.getNamaMateri(), Toast.LENGTH_SHORT).show()
+        );
     }
 
     @Override

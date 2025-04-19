@@ -72,6 +72,16 @@
                 android:paddingHorizontal="12dp"
                 android:layout_marginBottom="16dp" />
 
+            <EditText
+                android:id="@+id/etDetailMateri"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Detail Materi"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:paddingHorizontal="12dp"
+                android:layout_marginBottom="16dp" />
+
             <Button
                 android:id="@+id/btnSubmitMateri"
                 android:layout_width="match_parent"

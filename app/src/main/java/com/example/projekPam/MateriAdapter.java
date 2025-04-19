@@ -10,6 +10,16 @@ import java.util.List;
 public class MateriAdapter extends RecyclerView.Adapter<MateriAdapter.MateriViewHolder> {
 
     private List<Materi> materiList;
+    private OnItemClickListener listener;
+
+    // Tambahkan interface listener
+    public interface OnItemClickListener {
+        void onItemClick(Materi materi);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     // Constructor
     public MateriAdapter(List<Materi> materiList) {
@@ -29,6 +39,13 @@ public class MateriAdapter extends RecyclerView.Adapter<MateriAdapter.MateriView
         Materi materi = materiList.get(position);
         holder.binding.tvNamaMateri.setText(materi.getNamaMateri());
         holder.binding.imgMateri.setImageResource(materi.getImgMateriResId());
+
+        // Handle click pada seluruh item
+        holder.binding.getRoot().setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(materi);
+            }
+        });
 
         // Klik tombol download/delete
         holder.binding.btnDownloadMateri.setOnClickListener(v -> {
@@ -54,3 +71,4 @@ public class MateriAdapter extends RecyclerView.Adapter<MateriAdapter.MateriView
         }
     }
 }
+

@@ -59,13 +59,17 @@ public class ProfileUtamaActivity extends AppCompatActivity {
         recyclerViewAddFriends.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewAddFriends.setAdapter(addFriendAdapter);
 
-        loadProfile();
-        loadFriendsList();
-        loadPotentialFriendsList();
-
         editProfileButton.setOnClickListener(view -> {
             startActivity(new Intent(ProfileUtamaActivity.this, ProfileActivity.class));
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadProfile();
+        loadFriendsList();
+        loadPotentialFriendsList();
     }
 
     private void loadProfile() {
@@ -122,20 +126,32 @@ public class ProfileUtamaActivity extends AppCompatActivity {
     }
 
     private void loadPotentialFriendsList() {
-        db.collection("users")
+        db.collection("users").document(currentUserId)
+                .collection("friends")
                 .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    potentialFriendsList.clear();
-                    for (DocumentSnapshot document : querySnapshot) {
-                        String id = document.getId();
-                        if (!id.equals(currentUserId)) {
-                            String username = document.getString("username");
-                            String fullname = document.getString("fullname");
-                            potentialFriendsList.add(new Friend(id, username, fullname));
-                        }
+                .addOnSuccessListener(friendSnapshots -> {
+                    List<String> friendIds = new ArrayList<>();
+                    for (DocumentSnapshot doc : friendSnapshots) {
+                        friendIds.add(doc.getId());
                     }
-                    addFriendAdapter.notifyDataSetChanged();
+
+                    db.collection("users")
+                            .get()
+                            .addOnSuccessListener(userSnapshots -> {
+                                potentialFriendsList.clear();
+                                for (DocumentSnapshot document : userSnapshots) {
+                                    String id = document.getId();
+
+                                    if (!id.equals(currentUserId) && !friendIds.contains(id)) {
+                                        String username = document.getString("username");
+                                        String fullname = document.getString("fullname");
+                                        potentialFriendsList.add(new Friend(id, username, fullname));
+                                    }
+                                }
+                                addFriendAdapter.notifyDataSetChanged();
+                            })
+                            .addOnFailureListener(e -> Log.e("PotentialLoad", "Gagal memuat daftar calon teman: " + e.getMessage()));
                 })
-                .addOnFailureListener(e -> Log.e("PotentialLoad", "Gagal memuat daftar calon teman: " + e.getMessage()));
+                .addOnFailureListener(e -> Log.e("FriendCheck", "Gagal mengambil daftar teman: " + e.getMessage()));
     }
 }

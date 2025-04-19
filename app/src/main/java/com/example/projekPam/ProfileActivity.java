@@ -3,6 +3,7 @@ package com.example.projekPam;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private EditText fullNameEditText, usernameEditText, emailEditText;
     private Button saveButton;
+    private ImageView btnBack;
     private FirebaseFirestore db;
     private String currentUserId = "userId123";
 
@@ -29,6 +31,10 @@ public class ProfileActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.etUsername);
         emailEditText = findViewById(R.id.etEmail);
         saveButton = findViewById(R.id.btnSimpan);
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> finish());
 
         db = FirebaseFirestore.getInstance();
 

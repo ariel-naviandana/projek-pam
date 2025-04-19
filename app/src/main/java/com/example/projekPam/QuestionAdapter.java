@@ -41,6 +41,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         holder.tvQuestionType.setText("Tipe: " + question.getType());
         holder.tvCorrectAnswer.setText("Jawaban Benar: " + question.getAnswer());
 
+        holder.tvQuestion.setOnClickListener(v -> {
+            Toast.makeText(v.getContext(), "Pertanyaan: " + question.getQuestion(), Toast.LENGTH_SHORT).show();
+        });
+
         holder.btnEditQuestion.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), QuestionFormActivity.class);
             intent.putExtra("QUIZ_ID", quizId);

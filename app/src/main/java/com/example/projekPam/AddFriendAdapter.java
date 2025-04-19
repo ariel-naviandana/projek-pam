@@ -38,11 +38,9 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.View
         Friend friend = friendList.get(position);
 
         holder.usernameText.setText(friend.getUsername());
-        // Set image dummy untuk avatar
         holder.avatarImage.setImageResource(R.drawable.avatar);
 
         holder.addButton.setOnClickListener(v -> {
-            // Menambahkan teman ke daftar teman
             addFriend(friend.getId());
         });
     }

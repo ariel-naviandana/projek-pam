@@ -16,8 +16,8 @@
         <!-- Ikon Materi -->
         <ImageView
             android:id="@+id/imgMateri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/fire_icon"
             android:contentDescription="Icon Materi"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/headerCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/transparent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:background="@drawable/header_bottom_rounded">
+
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/arrow_back"
+                    app:tint="@color/black"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Tambah Soal"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_margin="16dp"
+            android:padding="16dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pertanyaan"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="12dp" />
+
+                <EditText
+                    android:id="@+id/etQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukkan pertanyaan"
+                    android:background="@drawable/rounded_edit_text"
+                    android:textSize="14sp"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:padding="12dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipe Soal"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="12dp" />
+
+                <Spinner
+                    android:id="@+id/spinnerQuestionType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:padding="12dp" />
+
+                <LinearLayout
+                    android:id="@+id/layoutOptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Opsi Jawaban"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="12dp" />
+
+                    <EditText
+                        android:id="@+id/etOptionA"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Opsi A"
+                        android:background="@drawable/rounded_edit_text"
+                        android:textSize="14sp"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:padding="12dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="12dp" />
+
+                    <EditText
+                        android:id="@+id/etOptionB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Opsi B"
+                        android:background="@drawable/rounded_edit_text"
+                        android:textSize="14sp"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:padding="12dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="12dp" />
+
+                    <EditText
+                        android:id="@+id/etOptionC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Opsi C"
+                        android:background="@drawable/rounded_edit_text"
+                        android:textSize="14sp"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:padding="12dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="12dp" />
+
+                    <EditText
+                        android:id="@+id/etOptionD"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Opsi D"
+                        android:background="@drawable/rounded_edit_text"
+                        android:textSize="14sp"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:padding="12dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jawaban Benar"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="12dp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerCorrectAnswer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="12dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:padding="12dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTrueFalse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jawaban Benar"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="12dp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerTrueFalseAnswer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="12dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:padding="12dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutShortAnswer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jawaban Benar"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="12dp" />
+
+                    <EditText
+                        android:id="@+id/etShortAnswer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Masukkan jawaban benar"
+                        android:background="@drawable/rounded_edit_text"
+                        android:textSize="14sp"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        android:padding="12dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="12dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unggah Gambar (Opsional)"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="12dp" />
+
+                <ImageView
+                    android:id="@+id/ivPreviewImage"
+                    android:layout_width="250dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/poster_challenge"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Pratinjau Gambar" />
+
+                <Button
+                    android:id="@+id/btnUploadImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/primary"
+                    android:text="Unggah Gambar"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btnSaveQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/blue"
+            android:text="Simpan"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</ScrollView>

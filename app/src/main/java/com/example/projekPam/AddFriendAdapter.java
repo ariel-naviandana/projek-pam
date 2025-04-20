@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,6 +72,8 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.View
                                     notifyDataSetChanged();
 
                                     ((ProfileUtamaActivity) context).addFriendToFriendsList(friend);
+
+                                    Toast.makeText(context, "Menambahkan " + fullname + " ke daftar teman", Toast.LENGTH_SHORT).show();
                                 });
                     }
                 });

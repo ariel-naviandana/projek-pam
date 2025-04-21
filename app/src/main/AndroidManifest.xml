@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ProjekPam"
         tools:targetApi="31">
         <activity
+            android:name=".AddMateriActivity"
+            android:exported="false" />
+        <activity
             android:name=".MateriActivity"
             android:exported="false" />
         <activity

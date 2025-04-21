@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.projekPam.databinding.ActivityLeaderboardBinding;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LeaderboardActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityLeaderboardBinding binding;
@@ -20,7 +21,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
         binding = ActivityLeaderboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ArrayList<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
+        List<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
         leaderboardEntries.add(new LeaderboardEntry("Alice", "@alice1", 15900, 1));
         leaderboardEntries.add(new LeaderboardEntry("Bob", "@bob1", 14900, 2));
         leaderboardEntries.add(new LeaderboardEntry("Charlie", "@charlie1", 13500, 3));
@@ -58,7 +59,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
             Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.profile || id == R.id.avatar || id == R.id.tvName) {
-            Intent intent = new Intent(this, ProfileActivity.class);
+            Intent intent = new Intent(this, ProfileUtamaActivity.class);
             startActivity(intent);
         }
     }

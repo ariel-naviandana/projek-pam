@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/white_bg">
 
-    <!-- ScrollView untuk konten yang bisa di-scroll -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -29,8 +28,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/header"
+                    android:layout_height="280dp"
+                    android:background="@drawable/header_bottom_rounded"
                     android:paddingBottom="20dp">
 
                     <androidx.cardview.widget.CardView
@@ -55,7 +54,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="17dp"
-                                android:layout_marginBottom="27dp"
+                                android:layout_marginBottom="8dp"
                                 android:text="@string/username"
                                 android:textColor="@color/black"
                                 android:textSize="20sp"
@@ -75,32 +74,6 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:srcCompat="@drawable/avatar" />
-
-                            <ImageView
-                                android:id="@+id/exp25"
-                                android:layout_width="47dp"
-                                android:layout_height="25dp"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginTop="5dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/avatar"
-                                app:layout_constraintTop_toBottomOf="@+id/tvName"
-                                app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/exp25" />
-
-                            <ImageView
-                                android:id="@+id/dollar25"
-                                android:layout_width="47dp"
-                                android:layout_height="25dp"
-                                android:layout_marginStart="5dp"
-                                android:layout_marginTop="5dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintStart_toEndOf="@+id/exp25"
-                                app:layout_constraintTop_toBottomOf="@+id/tvName"
-                                app:layout_constraintVertical_bias="0.0"
-                                app:srcCompat="@drawable/dollar25" />
 
                             <ImageView
                                 android:id="@+id/notif"
@@ -488,56 +461,76 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Gambar 1 -->
         <ImageView
             android:id="@+id/home"
             android:layout_width="60dp"
             android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:clickable="true"
             android:contentDescription="@string/home"
             android:focusable="true"
             android:onClick="onClick"
             android:src="@drawable/ic_home_active"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/leaderboard"
+            app:layout_constraintEnd_toStartOf="@+id/materi"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Gambar 2 -->
         <ImageView
-            android:id="@+id/leaderboard"
-            android:layout_width="100dp"
+            android:id="@+id/materi"
+            android:layout_width="60dp"
             android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:clickable="true"
-            android:contentDescription="@string/search"
+            android:contentDescription="@string/materi"
             android:focusable="true"
             android:onClick="onClick"
-            android:src="@drawable/ic_leaderboard"
+            android:src="@drawable/ic_materi"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ecochallenge"
+            app:layout_constraintEnd_toStartOf="@+id/quiz"
             app:layout_constraintStart_toEndOf="@+id/home"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Gambar 3 -->
         <ImageView
-            android:id="@+id/ecochallenge"
+            android:id="@+id/quiz"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:contentDescription="@string/quiz"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_kuis"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/challenge"
+            app:layout_constraintStart_toEndOf="@+id/materi"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/challenge"
             android:layout_width="100dp"
             android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:clickable="true"
-            android:contentDescription="@string/ecochallenge"
+            android:contentDescription="@string/challenge"
             android:focusable="true"
             android:onClick="onClick"
             android:src="@drawable/ic_ecochallenge"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/profile"
-            app:layout_constraintStart_toEndOf="@+id/leaderboard"
+            app:layout_constraintStart_toEndOf="@+id/quiz"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Gambar 4 -->
         <ImageView
             android:id="@+id/profile"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:contentDescription="@string/profile"
             android:focusable="true"
@@ -545,7 +538,7 @@
             android:src="@drawable/ic_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ecochallenge"
+            app:layout_constraintStart_toEndOf="@+id/challenge"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

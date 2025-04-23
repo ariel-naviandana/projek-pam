@@ -22,8 +22,14 @@
             android:name=".LeaderboardActivity"
             android:exported="false" />
         <activity
-            android:name=".ChallengeActivity"
+            android:name=".EcoChallengeActivity"
             android:exported="false" />
+        <activity
+            android:name=".ChallengeFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChallengeActivity"
+            android:exported="true" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
@@ -44,6 +50,9 @@
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileUtamaActivity"
             android:exported="false" />
         <activity
             android:name=".QuestionActivity"

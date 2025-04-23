@@ -47,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         else if (id == R.id.leaderboard) {
             Intent intent = new Intent(this, LeaderboardActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         }
         else if (id == R.id.ecochallenge)
             Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
@@ -55,40 +56,49 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, ProfileUtamaActivity.class);
             intent.putExtra("USERNAME", username);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         } else if (id == R.id.detail1 || id == R.id.judulAgustus) {
             String title = binding.judulAgustus.getText().toString();
-            Intent intent = new Intent(this, ChallengeActivity.class);
+            Intent intent = new Intent(this, EcoChallengeActivity.class);
             intent.putExtra("TITLE", title);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         } else if (id == R.id.detail2 || id == R.id.judulSeptember) {
             String title = binding.judulSeptember.getText().toString();
-            Intent intent = new Intent(this, ChallengeActivity.class);
+            Intent intent = new Intent(this, EcoChallengeActivity.class);
             intent.putExtra("TITLE", title);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         } else if (id == R.id.pengantar) {
             Intent intent = new Intent(this, MateriActivity.class);
             intent.putExtra("TITLE", "Pengantar");
             startActivity(intent);
+            overridePendingTransition(0, 0);
         } else if (id == R.id.gasRumahKaca) {
             Intent intent = new Intent(this, MateriActivity.class);
             intent.putExtra("TITLE", "Gas Rumah Kaca");
             startActivity(intent);
+            overridePendingTransition(0, 0);
         } else if (id == R.id.perubahanIklim) {
             Intent intent = new Intent(this, MateriActivity.class);
             intent.putExtra("TITLE", "Perubahan Iklim");
             startActivity(intent);
+            overridePendingTransition(0, 0);
         } else if (id == R.id.energiTerbarukan) {
             Intent intent = new Intent(this, MateriActivity.class);
             intent.putExtra("TITLE", "Energi Terbarukan");
             startActivity(intent);
+            overridePendingTransition(0, 0);
         } else if (id == R.id.adaptasiPerubahan) {
             Intent intent = new Intent(this, MateriActivity.class);
             intent.putExtra("TITLE", "Adaptasi Perubahan");
             startActivity(intent);
+            overridePendingTransition(0, 0);
         } else if (id == R.id.sampah) {
             Intent intent = new Intent(this, MateriActivity.class);
             intent.putExtra("TITLE", "Sampah");
             startActivity(intent);
+            overridePendingTransition(0, 0);
         }
     }
 }

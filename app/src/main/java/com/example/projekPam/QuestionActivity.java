@@ -61,7 +61,8 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
                             String type = document.getString("tipe");
                             String answer = document.getString("jawaban");
                             List<String> options = (List<String>) document.get("pilihan");
-                            questionList.add(new Question(id, question, type, answer, options));
+                            String imageUrl = document.getString("gambar");
+                            questionList.add(new Question(id, question, type, answer, options, imageUrl));
                         }
                         questionAdapter.notifyDataSetChanged();
                     }

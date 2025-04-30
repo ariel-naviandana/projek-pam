@@ -57,18 +57,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("USERNAME", username);
             startActivity(intent);
             overridePendingTransition(0, 0);
-        } else if (id == R.id.detail1 || id == R.id.judulAgustus) {
-            String title = binding.judulAgustus.getText().toString();
-            Intent intent = new Intent(this, EcoChallengeActivity.class);
-            intent.putExtra("TITLE", title);
-            startActivity(intent);
-            overridePendingTransition(0, 0);
-        } else if (id == R.id.detail2 || id == R.id.judulSeptember) {
-            String title = binding.judulSeptember.getText().toString();
-            Intent intent = new Intent(this, EcoChallengeActivity.class);
-            intent.putExtra("TITLE", title);
-            startActivity(intent);
-            overridePendingTransition(0, 0);
         } else if (id == R.id.pengantar) {
             Intent intent = new Intent(this, MateriActivity.class);
             intent.putExtra("TITLE", "Pengantar");

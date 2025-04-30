@@ -23,9 +23,6 @@
             android:name=".LeaderboardActivity"
             android:exported="false" />
         <activity
-            android:name=".EcoChallengeActivity"
-            android:exported="false" />
-        <activity
             android:name=".ChallengeFormActivity"
             android:exported="false" />
         <activity

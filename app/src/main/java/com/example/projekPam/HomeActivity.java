@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.projekPam.databinding.ActivityHomeBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityHomeBinding binding;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +18,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Set click listeners
         binding.home.setOnClickListener(this);
         binding.leaderboard.setOnClickListener(this);
         binding.ecochallenge.setOnClickListener(this);
@@ -34,24 +38,27 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         binding.energiTerbarukan.setOnClickListener(this);
         binding.adaptasiPerubahan.setOnClickListener(this);
         binding.sampah.setOnClickListener(this);
+        binding.notif.setOnClickListener(this);
 
+        // Set username from intent
         String username = getIntent().getStringExtra("USERNAME");
-        if (username != null)
+        if (username != null) {
             binding.tvName.setText(username);
+        }
     }
 
+    @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.home)
+        if (id == R.id.home) {
             Toast.makeText(this, "Anda sudah di home, gunakan back untuk ke home.", Toast.LENGTH_SHORT).show();
-        else if (id == R.id.leaderboard) {
+        } else if (id == R.id.leaderboard) {
             Intent intent = new Intent(this, LeaderboardActivity.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
-        }
-        else if (id == R.id.ecochallenge)
+        } else if (id == R.id.ecochallenge) {
             Toast.makeText(this, "Halaman belum ada", Toast.LENGTH_SHORT).show();
-        else if (id == R.id.profile || id == R.id.avatar || id == R.id.tvName) {
+        } else if (id == R.id.profile || id == R.id.avatar || id == R.id.tvName) {
             String username = binding.tvName.getText().toString();
             Intent intent = new Intent(this, ProfileUtamaActivity.class);
             intent.putExtra("USERNAME", username);
@@ -87,6 +94,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("TITLE", "Sampah");
             startActivity(intent);
             overridePendingTransition(0, 0);
+        } else if (id == R.id.notif) {
+            // Sign out from Firebase
+            mAuth.signOut();
+            Toast.makeText(this, "Berhasil logout!", Toast.LENGTH_SHORT).show();
+            // Redirect to LoginActivity and clear activity stack
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         }
     }
 }

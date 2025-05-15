@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.projekPam.databinding.ActivityHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityHomeBinding binding;
@@ -20,6 +21,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
+        // Set username from current Firebase user
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String email = currentUser.getEmail();
+            if (email != null) {
+                binding.tvName.setText(email);
+            } else {
+                binding.tvName.setText("User"); // Fallback if email is null
+            }
+        } else {
+            binding.tvName.setText("Guest"); // Fallback if no user is logged in
+        }
 
         // Set click listeners
         binding.home.setOnClickListener(this);
@@ -39,12 +53,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         binding.adaptasiPerubahan.setOnClickListener(this);
         binding.sampah.setOnClickListener(this);
         binding.notif.setOnClickListener(this);
-
-        // Set username from intent
-        String username = getIntent().getStringExtra("USERNAME");
-        if (username != null) {
-            binding.tvName.setText(username);
-        }
     }
 
     @Override

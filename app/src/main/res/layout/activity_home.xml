@@ -58,7 +58,7 @@
                                 android:layout_marginBottom="27dp"
                                 android:text="@string/username"
                                 android:textColor="@color/black"
-                                android:textSize="20sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/avatar"

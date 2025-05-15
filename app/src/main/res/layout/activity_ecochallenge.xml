@@ -50,7 +50,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvChallenges"
+                android:id="@+id/rvEcohallenges"
                 android:paddingBottom="200dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

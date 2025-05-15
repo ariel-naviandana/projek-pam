@@ -67,11 +67,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         holder.binding.btnHapus.setOnClickListener(v -> {
             showDeleteConfirmationDialog(challenge, position);
         });
-
-        holder.binding.detail.setOnClickListener(v -> {
-            // Intent ke DetailChallengeActivity jika diperlukan
-            Toast.makeText(context, "Detail challenge: " + challenge.getJudul(), Toast.LENGTH_SHORT).show();
-        });
     }
 
     private String formatDateRange(Timestamp start, Timestamp end) {

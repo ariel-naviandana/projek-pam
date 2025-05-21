@@ -90,12 +90,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (id == R.id.quiz)
             Toast.makeText(this, "Anda sudah di halaman kuis.", Toast.LENGTH_SHORT).show();
-        else if (id == R.id.challenge)
-            Toast.makeText(this, "Halaman Challenge belum ada", Toast.LENGTH_SHORT).show();
-        else if (id == R.id.materi)
-            Toast.makeText(this, "Halaman Materi belum ada", Toast.LENGTH_SHORT).show();
-        else if (id == R.id.profile) {
-            Intent intent = new Intent(this, ProfileActivity.class);
+        else if (id == R.id.challenge){
+            Intent intent = new Intent(this, ChallengeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.materi){
+            Intent intent = new Intent(this, MateriActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.profile) {
+            Intent intent = new Intent(this, ProfileUtamaActivity.class);
             startActivity(intent);
         } else if (id == R.id.btnAddQuiz) {
             Intent intent = new Intent(this, QuizFormActivity.class);

@@ -120,7 +120,7 @@
             android:clickable="true"
             android:contentDescription="@string/home"
             android:focusable="true"
-            android:src="@drawable/ic_home_active"
+            android:src="@drawable/ic_home"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/materi"
             app:layout_constraintStart_toStartOf="parent"

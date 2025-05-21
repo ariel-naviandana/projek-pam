@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
-                android:background="@drawable/header_bottom_rounded">
+                android:background="@drawable/header">
 
                 <ImageButton
                     android:id="@+id/btnBack"
@@ -33,7 +33,7 @@
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/back"
                     android:src="@drawable/ic_back"
-                    app:tint="@color/black"
+                    app:tint="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="42dp"
                     android:text="@string/ecochallenge"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"

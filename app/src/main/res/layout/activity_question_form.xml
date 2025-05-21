@@ -23,14 +23,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
-                android:background="@drawable/header_bottom_rounded">
+                android:background="@drawable/header">
 
                 <ImageView
                     android:id="@+id/btnBack"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/arrow_back"
-                    app:tint="@color/black"
+                    app:tint="@color/white"
                     android:layout_marginTop="30dp"
                     android:layout_marginStart="30dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:text="Tambah Soal"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"

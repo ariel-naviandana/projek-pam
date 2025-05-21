@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
-            android:background="@drawable/header_bottom_rounded">
+            android:background="@drawable/header">
 
             <TextView
                 android:id="@+id/title"
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="Profile"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -74,6 +74,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
             if (userRole.equals("admin")) {
                 Intent intent = new Intent(context, ChallengeFormActivity.class);
                 intent.putExtra("CHALLENGE_ID", challenge.getId());
+                intent.putExtra("IMAGE", challenge.getImage());
                 intent.putExtra("JUDUL", challenge.getJudul());
                 intent.putExtra("DATE_START", challenge.getDate_start().toDate().getTime());
                 intent.putExtra("DATE_END", challenge.getDate_end().toDate().getTime());

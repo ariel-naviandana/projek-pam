@@ -16,7 +16,7 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChallengeActivity extends AppCompatActivity {
+public class ChallengeActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityChallengeBinding binding;
     private ChallengeAdapter adapter;
     private FirebaseFirestore db;
@@ -36,6 +36,8 @@ public class ChallengeActivity extends AppCompatActivity {
         setupRecyclerView();
         loadUserRole();
         loadChallenges();
+
+        binding.fabAddChallenge.setOnClickListener(this);
     }
 
     private void setupRecyclerView() {
@@ -199,6 +201,15 @@ public class ChallengeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             loadChallenges(); // Refresh challenges after adding/editing
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.fabAddChallenge) {
+            Intent intent = new Intent(this, ChallengeFormActivity.class);
+            startActivity(intent);
         }
     }
 }

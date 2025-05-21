@@ -220,6 +220,96 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/NavbarAdmin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/homeAdmin"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:contentDescription="@string/home"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/materi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/materi"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:contentDescription="@string/materi"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_materi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/quiz"
+            app:layout_constraintStart_toEndOf="@+id/homeAdmin"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/quiz"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:contentDescription="@string/quiz"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_kuis"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/challenge"
+            app:layout_constraintStart_toEndOf="@+id/materi"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/challenge"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:contentDescription="@string/challenge"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_ecochallenge"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/profileAdmin"
+            app:layout_constraintStart_toEndOf="@+id/quiz"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/profileAdmin"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:contentDescription="@string/profile"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_profile_active"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/challenge"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Navbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

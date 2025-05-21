@@ -28,7 +28,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/header_bottom_rounded"
+                    android:background="@drawable/header"
                     android:paddingBottom="20dp">
 
                     <TextView
@@ -38,7 +38,7 @@
                         android:layout_marginTop="42dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/ecochallenge"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +59,7 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Navbar"
+        android:id="@+id/NavbarAdmin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -69,7 +69,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/home"
+            android:id="@+id/homeAdmin"
             android:layout_width="60dp"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
@@ -97,7 +97,7 @@
             android:src="@drawable/ic_materi"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/quiz"
-            app:layout_constraintStart_toEndOf="@+id/home"
+            app:layout_constraintStart_toEndOf="@+id/homeAdmin"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -128,12 +128,12 @@
             android:onClick="onClick"
             android:src="@drawable/ic_ecochallenge_active"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/profile"
+            app:layout_constraintEnd_toStartOf="@+id/profileAdmin"
             app:layout_constraintStart_toEndOf="@+id/quiz"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/profile"
+            android:id="@+id/profileAdmin"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="5dp"
@@ -149,12 +149,83 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Navbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Gambar 1 -->
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:contentDescription="@string/home"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/leaderboard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Gambar 2 -->
+        <ImageView
+            android:id="@+id/leaderboard"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:contentDescription="@string/search"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_leaderboard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ecochallenge"
+            app:layout_constraintStart_toEndOf="@+id/home"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Gambar 3 -->
+        <ImageView
+            android:id="@+id/ecochallenge"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:clickable="true"
+            android:contentDescription="@string/ecochallenge"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_ecochallenge_active"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/profile"
+            app:layout_constraintStart_toEndOf="@+id/leaderboard"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Gambar 4 -->
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:clickable="true"
+            android:contentDescription="@string/profile"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:src="@drawable/ic_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ecochallenge"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddChallenge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="100dp"
         android:backgroundTint="@color/secondary"
         android:contentDescription="Tambah Soal"
         android:src="@drawable/ic_add"

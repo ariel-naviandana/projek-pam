@@ -3,6 +3,7 @@ package com.example.projekPam;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +29,11 @@ public class ProfileUtamaActivity extends AppCompatActivity {
     private List<Friend> friendsList;
     private List<Friend> potentialFriendsList;
     private Button editProfileButton;
-    private TextView usernameText, emailText, xpText, coinText;
+    private TextView usernameText, emailText, xpText, coinText, txtTambahTeman, txtDaftarTeman;
     private ImageView avatarImage, ivXp, ivKoin;
     private FriendAdapter friendAdapter;
     private AddFriendAdapter addFriendAdapter;
+    private String userRole = "user"; // Default role
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,8 @@ public class ProfileUtamaActivity extends AppCompatActivity {
         avatarImage = findViewById(R.id.ivAvatar);
         ivXp = findViewById(R.id.ivXp);
         ivKoin = findViewById(R.id.ivKoin);
+        txtTambahTeman = findViewById(R.id.txtTambahTeman);
+        txtDaftarTeman = findViewById(R.id.txtDaftarTeman);
 
         friendsList = new ArrayList<>();
         potentialFriendsList = new ArrayList<>();
@@ -67,10 +70,8 @@ public class ProfileUtamaActivity extends AppCompatActivity {
         recyclerViewAddFriends.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewAddFriends.setAdapter(addFriendAdapter);
 
-        // Edit profile button listener
-        editProfileButton.setOnClickListener(view -> {
-            startActivity(new Intent(ProfileUtamaActivity.this, ProfileActivity.class));
-        });
+        // Load user role and setup UI
+        loadUserRole();
 
         // Set username from Intent if available
         Intent intent = getIntent();
@@ -83,18 +84,123 @@ public class ProfileUtamaActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadProfile();
-        loadFriendsList();
-        loadPotentialFriendsList();
+        if (userRole.equals("user")) {
+            loadFriendsList();
+            loadPotentialFriendsList();
+        }
     }
 
     private String getCurrentUserId() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(this, "Pengguna tidak ditemukan. Silakan login kembali.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
             finish();
             return "";
         }
         return currentUser.getUid();
+    }
+
+    private void loadUserRole() {
+        String userId = getCurrentUserId();
+        if (userId.isEmpty()) return;
+
+        db.collection("users").document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        userRole = documentSnapshot.getString("role") != null ? documentSnapshot.getString("role") : "user";
+                        // Show/hide friend-related views based on role
+                        int visibility = userRole.equals("admin") ? View.GONE : View.VISIBLE;
+                        recyclerViewFriends.setVisibility(visibility);
+                        recyclerViewAddFriends.setVisibility(visibility);
+                        txtTambahTeman.setVisibility(visibility);
+                        txtDaftarTeman.setVisibility(visibility);
+                        // Setup navbar after role is determined
+                        setupNavbar();
+                    } else {
+                        userRole = "user";
+                        setupNavbar();
+                        Toast.makeText(this, "Data pengguna tidak ditemukan.", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FirestoreError", "Gagal mengambil role pengguna: " + e.getMessage());
+                    userRole = "user";
+                    setupNavbar();
+                    Toast.makeText(this, "Gagal mengambil data pengguna.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void setupNavbar() {
+        // Show appropriate navbar based on user role
+        findViewById(R.id.Navbar).setVisibility(userRole.equals("user") ? View.VISIBLE : View.GONE);
+        findViewById(R.id.NavbarAdmin).setVisibility(userRole.equals("admin") ? View.VISIBLE : View.GONE);
+
+        // Navbar for regular users
+        if (userRole.equals("user")) {
+            findViewById(R.id.home).setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            });
+
+            findViewById(R.id.leaderboard).setOnClickListener(v -> {
+                Intent intent = new Intent(this, LeaderboardActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            });
+
+            findViewById(R.id.ecochallenge).setOnClickListener(v -> {
+                Intent intent = new Intent(this, ChallengeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            });
+
+            findViewById(R.id.profile).setOnClickListener(v -> {
+                Toast.makeText(this, "Anda sudah di halaman profil.", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+        // Navbar for admins
+        if (userRole.equals("admin")) {
+            findViewById(R.id.homeAdmin).setOnClickListener(v -> {
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            });
+
+            findViewById(R.id.materi).setOnClickListener(v -> {
+                Intent intent = new Intent(this, MateriActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            });
+
+            findViewById(R.id.quiz).setOnClickListener(v -> {
+                Intent intent = new Intent(this, QuizActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            });
+
+            findViewById(R.id.challenge).setOnClickListener(v -> {
+                Intent intent = new Intent(this, ChallengeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            });
+
+            findViewById(R.id.profileAdmin).setOnClickListener(v -> {
+                Toast.makeText(this, "Anda sudah di halaman profil.", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+        // Edit profile button listener (common for both roles)
+        editProfileButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileUtamaActivity.this, ProfileActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        });
     }
 
     private void loadProfile() {

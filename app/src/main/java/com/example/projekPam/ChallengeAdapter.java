@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -20,11 +21,17 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     private List<Challenge> challengeList;
     private final FirebaseFirestore db;
     private final Context context;
+    private String userRole = "user"; // Default role
 
-    public ChallengeAdapter(List<Challenge> challengeList, Context context, FirebaseFirestore db) {
+    public ChallengeAdapter(List<Challenge> challengeList, Context context, FirebaseFirestore db, String userRole) {
         this.challengeList = challengeList;
         this.context = context;
         this.db = db;
+        this.userRole = userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     @NonNull
@@ -55,17 +62,25 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
             holder.binding.challengeImage.setImageResource(R.drawable.challenge_image);
         }
 
+        // Show/hide edit and delete buttons based on user role
+        holder.binding.btnEdit.setVisibility(userRole.equals("admin") ? View.VISIBLE : View.GONE);
+        holder.binding.btnHapus.setVisibility(userRole.equals("admin") ? View.VISIBLE : View.GONE);
+
         holder.binding.btnEdit.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ChallengeFormActivity.class);
-            intent.putExtra("CHALLENGE_ID", challenge.getId());
-            intent.putExtra("JUDUL", challenge.getJudul());
-            intent.putExtra("DATE_START", challenge.getDate_start().toDate().getTime());
-            intent.putExtra("DATE_END", challenge.getDate_end().toDate().getTime());
-            context.startActivity(intent);
+            if (userRole.equals("admin")) {
+                Intent intent = new Intent(context, ChallengeFormActivity.class);
+                intent.putExtra("CHALLENGE_ID", challenge.getId());
+                intent.putExtra("JUDUL", challenge.getJudul());
+                intent.putExtra("DATE_START", challenge.getDate_start().toDate().getTime());
+                intent.putExtra("DATE_END", challenge.getDate_end().toDate().getTime());
+                context.startActivity(intent);
+            }
         });
 
         holder.binding.btnHapus.setOnClickListener(v -> {
-            showDeleteConfirmationDialog(challenge, position);
+            if (userRole.equals("admin")) {
+                showDeleteConfirmationDialog(challenge, position);
+            }
         });
     }
 

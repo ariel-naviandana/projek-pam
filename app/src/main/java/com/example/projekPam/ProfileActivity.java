@@ -79,58 +79,11 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
-
-            // Preview the selected image
+            // Preview the selected image without uploading
             Glide.with(this)
                     .load(imageUri)
                     .into(binding.gambar);
-
-            // Upload to Cloudinary
-            uploadImageToCloudinary(imageUri);
         }
-    }
-
-    private void uploadImageToCloudinary(Uri imageUri) {
-        binding.editGambar.setEnabled(false);
-        isUploadingImage = true; // Mark upload as in progress
-        binding.btnSimpan.setEnabled(false); // Disable save button during upload
-
-        MediaManager.get().upload(imageUri)
-                .unsigned("ecokids") // Replace with your Cloudinary preset
-                .callback(new UploadCallback() {
-                    @Override
-                    public void onStart(String requestId) {
-                        Log.d("Cloudinary", "Starting image upload");
-                    }
-
-                    @Override
-                    public void onProgress(String requestId, long bytes, long totalBytes) {}
-
-                    @Override
-                    public void onSuccess(String requestId, Map resultData) {
-                        imageUrl = (String) resultData.get("secure_url");
-                        binding.editGambar.setEnabled(true);
-                        binding.btnSimpan.setEnabled(true); // Re-enable save button
-                        isUploadingImage = false; // Upload complete
-                        Toast.makeText(ProfileActivity.this, "Gambar berhasil diunggah", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(String requestId, ErrorInfo error) {
-                        binding.editGambar.setEnabled(true);
-                        binding.btnSimpan.setEnabled(true); // Re-enable save button
-                        isUploadingImage = false; // Upload failed, but allow saving
-                        Toast.makeText(ProfileActivity.this, "Gagal mengunggah gambar: " + error.getDescription(), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onReschedule(String requestId, ErrorInfo error) {
-                        binding.editGambar.setEnabled(true);
-                        binding.btnSimpan.setEnabled(true); // Re-enable save button
-                        isUploadingImage = false; // Upload rescheduled, allow saving
-                    }
-                })
-                .dispatch();
     }
 
     private void loadProfile() {
@@ -223,7 +176,64 @@ public class ProfileActivity extends AppCompatActivity {
             userData.put("image", imageUrl);
         }
 
-        // Update Firestore
+        // Handle image upload if a new image is selected
+        if (imageUri != null) {
+            uploadImageToCloudinary(userData);
+        } else {
+            updateFirestore(userData);
+        }
+    }
+
+    private void uploadImageToCloudinary(Map<String, Object> userData) {
+        binding.editGambar.setEnabled(false);
+        binding.btnSimpan.setEnabled(false);
+        isUploadingImage = true;
+
+        MediaManager.get().upload(imageUri)
+                .unsigned("ecokids") // Replace with your Cloudinary preset
+                .option("resource_type", "image")
+                .option("quality", "80") // Compress image quality
+                .callback(new UploadCallback() {
+                    @Override
+                    public void onStart(String requestId) {
+                        Log.d("Cloudinary", "Starting image upload");
+                    }
+
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {}
+
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+                        imageUrl = (String) resultData.get("secure_url");
+                        userData.put("image", imageUrl);
+                        updateFirestore(userData);
+                    }
+
+                    @Override
+                    public void onError(String requestId, ErrorInfo error) {
+                        binding.editGambar.setEnabled(true);
+                        binding.btnSimpan.setEnabled(true);
+                        isUploadingImage = false;
+                        Toast.makeText(ProfileActivity.this, "Gagal mengunggah gambar: " + error.getDescription(), Toast.LENGTH_SHORT).show();
+                        // Use existing image or proceed without image
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            userData.put("image", imageUrl);
+                        }
+                        updateFirestore(userData);
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {
+                        binding.editGambar.setEnabled(true);
+                        binding.btnSimpan.setEnabled(true);
+                        isUploadingImage = false;
+                    }
+                })
+                .dispatch();
+    }
+
+    private void updateFirestore(Map<String, Object> userData) {
+        String userId = mAuth.getCurrentUser().getUid();
         db.collection("users").document(userId)
                 .update(userData)
                 .addOnSuccessListener(aVoid -> {
@@ -232,6 +242,9 @@ public class ProfileActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     Log.e("ProfileSave", "Gagal memperbarui profil: " + e.getMessage());
+                    binding.editGambar.setEnabled(true);
+                    binding.btnSimpan.setEnabled(true);
+                    isUploadingImage = false;
                     Toast.makeText(this, "Gagal memperbarui profil: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }

@@ -1,59 +1,143 @@
 package com.example.projekPam;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
+import com.example.projekPam.databinding.ActivityProfileBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
-
-    private EditText fullNameEditText, usernameEditText, emailEditText;
-    private Button saveButton;
-    private ImageView btnBack;
+    private ActivityProfileBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Uri imageUri;
+    private String imageUrl;
+    private boolean isCloudinaryInitialized = false;
+    private boolean isUploadingImage = false; // Track upload status
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        binding = ActivityProfileBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        // Initialize Firebase Auth and Firestore
+        // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // Initialize views
-        fullNameEditText = findViewById(R.id.etFullName);
-        usernameEditText = findViewById(R.id.etUsername);
-        emailEditText = findViewById(R.id.etEmail);
-        saveButton = findViewById(R.id.btnSimpan);
-        btnBack = findViewById(R.id.btnBack);
+        // Initialize Cloudinary
+        initCloudinary();
 
-        // Back button listener
-        btnBack.setOnClickListener(v -> finish());
+        // Load current user profile data
+        loadProfile();
 
-        // Load profile data
-        loadProfileData();
-
-        // Save button listener
-        saveButton.setOnClickListener(view -> saveProfileData());
+        // Set click listeners
+        binding.btnBack.setOnClickListener(v -> finish());
+        binding.editGambar.setOnClickListener(v -> openImagePicker());
+        binding.btnSimpan.setOnClickListener(v -> saveProfile());
     }
 
-    private void loadProfileData() {
+    private void initCloudinary() {
+        if (!isCloudinaryInitialized) {
+            try {
+                Map<String, String> config = new HashMap<>();
+                config.put("cloud_name", "dto6d9tbe"); // Replace with your Cloudinary cloud name
+                MediaManager.init(this, config);
+                isCloudinaryInitialized = true;
+            } catch (IllegalStateException e) {
+                Log.e("Cloudinary", "MediaManager already initialized: " + e.getMessage());
+            }
+        }
+    }
+
+    private void openImagePicker() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Pilih Gambar"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData();
+
+            // Preview the selected image
+            Glide.with(this)
+                    .load(imageUri)
+                    .into(binding.gambar);
+
+            // Upload to Cloudinary
+            uploadImageToCloudinary(imageUri);
+        }
+    }
+
+    private void uploadImageToCloudinary(Uri imageUri) {
+        binding.editGambar.setEnabled(false);
+        isUploadingImage = true; // Mark upload as in progress
+        binding.btnSimpan.setEnabled(false); // Disable save button during upload
+
+        MediaManager.get().upload(imageUri)
+                .unsigned("ecokids") // Replace with your Cloudinary preset
+                .callback(new UploadCallback() {
+                    @Override
+                    public void onStart(String requestId) {
+                        Log.d("Cloudinary", "Starting image upload");
+                    }
+
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {}
+
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+                        imageUrl = (String) resultData.get("secure_url");
+                        binding.editGambar.setEnabled(true);
+                        binding.btnSimpan.setEnabled(true); // Re-enable save button
+                        isUploadingImage = false; // Upload complete
+                        Toast.makeText(ProfileActivity.this, "Gambar berhasil diunggah", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(String requestId, ErrorInfo error) {
+                        binding.editGambar.setEnabled(true);
+                        binding.btnSimpan.setEnabled(true); // Re-enable save button
+                        isUploadingImage = false; // Upload failed, but allow saving
+                        Toast.makeText(ProfileActivity.this, "Gagal mengunggah gambar: " + error.getDescription(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {
+                        binding.editGambar.setEnabled(true);
+                        binding.btnSimpan.setEnabled(true); // Re-enable save button
+                        isUploadingImage = false; // Upload rescheduled, allow saving
+                    }
+                })
+                .dispatch();
+    }
+
+    private void loadProfile() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(this, "Pengguna tidak ditemukan. Silakan login kembali.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
         }
@@ -63,61 +147,92 @@ public class ProfileActivity extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        String fullName = documentSnapshot.getString("fullname"); // Changed to match Firestore field
+                        String fullname = documentSnapshot.getString("fullname");
                         String username = documentSnapshot.getString("username");
                         String email = documentSnapshot.getString("email");
+                        String image = documentSnapshot.getString("image");
 
-                        fullNameEditText.setText(fullName != null ? fullName : "");
-                        usernameEditText.setText(username != null ? username : "");
-                        emailEditText.setText(email != null ? email : "");
+                        binding.etFullName.setText(fullname != null ? fullname : "");
+                        binding.etUsername.setText(username != null ? username : "");
+                        binding.etEmail.setText(email != null ? email : "");
+
+                        if (image != null && !image.isEmpty()) {
+                            Glide.with(this)
+                                    .load(image)
+                                    .placeholder(R.drawable.avatar)
+                                    .error(R.drawable.avatar)
+                                    .into(binding.gambar);
+                            imageUrl = image; // Preserve existing image URL
+                        } else {
+                            binding.gambar.setImageResource(R.drawable.avatar);
+                        }
                     } else {
-                        Toast.makeText(this, "Data profil tidak ditemukan.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Data pengguna tidak ditemukan.", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(e -> Toast.makeText(this, "Gagal mengambil data: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Log.e("ProfileLoad", "Gagal memuat profil: " + e.getMessage());
+                    Toast.makeText(this, "Gagal memuat profil: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
-    private void saveProfileData() {
+    private void saveProfile() {
+        // Check if an image upload is in progress
+        if (isUploadingImage) {
+            Toast.makeText(this, "Harap tunggu hingga gambar selesai diunggah.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Toast.makeText(this, "Pengguna tidak ditemukan. Silakan login kembali.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
         }
 
-        String fullName = fullNameEditText.getText().toString().trim();
-        String username = usernameEditText.getText().toString().trim();
-        String email = emailEditText.getText().toString().trim();
+        String userId = currentUser.getUid();
+        String fullname = binding.etFullName.getText().toString().trim();
+        String username = binding.etUsername.getText().toString().trim();
+        String email = binding.etEmail.getText().toString().trim();
 
-        if (fullName.isEmpty() || username.isEmpty() || email.isEmpty()) {
-            Toast.makeText(this, "Mohon isi semua field.", Toast.LENGTH_SHORT).show();
+        // Validation
+        if (fullname.isEmpty()) {
+            binding.etFullName.setError("Nama lengkap tidak boleh kosong");
             return;
         }
-
-        // Validate email
+        if (username.isEmpty()) {
+            binding.etUsername.setError("Username tidak boleh kosong");
+            return;
+        }
+        if (email.isEmpty()) {
+            binding.etEmail.setError("Email tidak boleh kosong");
+            return;
+        }
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Email tidak valid!", Toast.LENGTH_SHORT).show();
+            binding.etEmail.setError("Masukkan email yang valid");
             return;
         }
 
-        Map<String, Object> profileData = new HashMap<>();
-        profileData.put("fullname", fullName); // Changed to match Firestore field
-        profileData.put("username", username);
-        profileData.put("email", email);
-        // Preserve existing fields if they exist
-        profileData.put("xp", 25); // Default or fetch from Firestore if needed
-        profileData.put("coin", 25); // Default or fetch from Firestore if needed
-        profileData.put("id", currentUser.getUid());
-        profileData.put("image", ""); // Preserve existing image or update if needed
-        profileData.put("created_at", new java.util.Date()); // Preserve or update as needed
-        profileData.put("role", "user"); // Preserve existing role
+        // Prepare data to save
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("fullname", fullname);
+        userData.put("username", username);
+        userData.put("email", email);
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            userData.put("image", imageUrl);
+        }
 
-        db.collection("users").document(currentUser.getUid())
-                .set(profileData)
+        // Update Firestore
+        db.collection("users").document(userId)
+                .update(userData)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Profil berhasil disimpan.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Profil berhasil diperbarui", Toast.LENGTH_SHORT).show();
                     finish();
                 })
-                .addOnFailureListener(e -> Toast.makeText(this, "Gagal menyimpan profil: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Log.e("ProfileSave", "Gagal memperbarui profil: " + e.getMessage());
+                    Toast.makeText(this, "Gagal memperbarui profil: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }

@@ -4,6 +4,7 @@ public class Friend {
     private String id;
     private String username;
     private String fullname;
+    private  String image;
 
     public Friend() {}
 
@@ -11,10 +12,11 @@ public class Friend {
         this.id = id;
     }
 
-    public Friend(String id, String username, String fullname) {
+    public Friend(String id, String username, String fullname, String image) {
         this.id = id;
         this.username = username;
         this.fullname = fullname;
+        this.image = image;
     }
 
     public String getId() {
@@ -39,5 +41,9 @@ public class Friend {
 
     public void setFullname (String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

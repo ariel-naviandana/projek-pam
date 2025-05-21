@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -215,19 +216,29 @@ public class ProfileUtamaActivity extends AppCompatActivity {
                         String email = documentSnapshot.getString("email");
                         Long xp = documentSnapshot.getLong("xp");
                         Long coin = documentSnapshot.getLong("coin");
+                        String image = documentSnapshot.getString("image");
 
                         usernameText.setText(username != null ? username : "-");
                         emailText.setText(email != null ? email : "-");
                         xpText.setText(xp != null ? String.valueOf(xp) : "0");
                         coinText.setText(coin != null ? String.valueOf(coin) : "0");
 
-                        avatarImage.setImageResource(R.drawable.avatar);
+                        if (image != null && !image.isEmpty()) {
+                            Glide.with(this)
+                                    .load(image)
+                                    .placeholder(R.drawable.avatar)
+                                    .error(R.drawable.avatar)
+                                    .into(avatarImage);
+                        } else {
+                            avatarImage.setImageResource(R.drawable.avatar);
+                        }
                     } else {
                         Log.e("ProfileLoad", "Dokumen profil tidak ditemukan");
                         usernameText.setText("-");
                         emailText.setText("-");
                         xpText.setText("0");
                         coinText.setText("0");
+                        avatarImage.setImageResource(R.drawable.avatar);
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -254,8 +265,9 @@ public class ProfileUtamaActivity extends AppCompatActivity {
                         String id = document.getId();
                         String username = document.getString("username");
                         String fullname = document.getString("fullname");
+                        String image = document.getString("image");
 
-                        friendsList.add(new Friend(id, username, fullname));
+                        friendsList.add(new Friend(id, username, fullname, image));
                     }
                     friendAdapter.notifyDataSetChanged();
                 });
@@ -294,7 +306,9 @@ public class ProfileUtamaActivity extends AppCompatActivity {
                                     if (!id.equals(userId) && !friendIds.contains(id)) {
                                         String username = document.getString("username");
                                         String fullname = document.getString("fullname");
-                                        potentialFriendsList.add(new Friend(id, username, fullname));
+                                        String image = document.getString("image");
+
+                                        potentialFriendsList.add(new Friend(id, username, fullname, image));
                                     }
                                 }
                                 addFriendAdapter.notifyDataSetChanged();

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -39,7 +40,16 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.View
         Friend friend = friendList.get(position);
 
         holder.usernameText.setText(friend.getUsername());
-        holder.avatarImage.setImageResource(R.drawable.avatar);
+
+        if (friend.getImage() != null && !friend.getImage().isEmpty()) {
+            Glide.with(context)
+                    .load(friend.getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(holder.avatarImage);
+        } else {
+            holder.avatarImage.setImageResource(R.drawable.avatar);
+        }
 
         holder.addButton.setOnClickListener(v -> {
             addFriend(friend.getId());
@@ -60,8 +70,9 @@ public class AddFriendAdapter extends RecyclerView.Adapter<AddFriendAdapter.View
                     if (documentSnapshot.exists()) {
                         String username = documentSnapshot.getString("username");
                         String fullname = documentSnapshot.getString("fullname");
+                        String image = documentSnapshot.getString("image");
 
-                        Friend friend = new Friend(friendId, username, fullname);
+                        Friend friend = new Friend(friendId, username, fullname, image);
 
                         db.collection("users").document(currentUserId)
                                 .collection("friends").document(friendId)

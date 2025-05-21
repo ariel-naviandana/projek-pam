@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -76,11 +78,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         if (document.exists()) {
                             userRole = document.getString("role") != null ? document.getString("role") : "user";
                             String username = document.getString("username");
+                            String image = document.getString("image");
                             Long xp = document.getLong("xp");
                             Long coin = document.getLong("coin");
                             binding.tvName.setText(username != null ? username : "User");
                             binding.exp25.setText(xp != null ? String.valueOf(xp) : "0");
                             binding.tvLives.setText(coin != null ? String.valueOf(coin) : "0");
+                            if (image != null && !image.isEmpty()) {
+                                Glide.with(this)
+                                        .load(image)
+                                        .placeholder(R.drawable.avatar)
+                                        .error(R.drawable.avatar)
+                                        .into(binding.avatar);
+                            } else {
+                                binding.avatar.setImageResource(R.drawable.avatar);
+                            }
                         } else {
                             userRole = "user";
                             binding.tvName.setText("User");

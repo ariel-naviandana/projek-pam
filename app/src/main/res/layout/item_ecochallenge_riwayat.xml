@@ -13,14 +13,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white_bg">
 
         <ImageView
             android:id="@+id/challengeImage"
             android:layout_width="148dp"
             android:layout_height="102dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:contentDescription="@string/agustus"
@@ -34,8 +34,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
             android:breakStrategy="simple"
             android:ellipsize="none"
             android:hyphenationFrequency="normal"
@@ -52,41 +52,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/challengeDate"
+            android:id="@+id/challengePeriod"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:text="@string/periodeAgustus"
-            android:textColor="@color/periode"
+            android:layout_marginEnd="10dp"
+            android:text="1 Agustus 2025"
+            android:textColor="@color/orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/challengeImage"
             app:layout_constraintTop_toBottomOf="@+id/challengeTitle" />
-
-        <Button
-            android:id="@+id/btnEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="5dp"
-            android:backgroundTint="@color/orange"
-            android:text="Edit"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@+id/btnHapus"
-            app:layout_constraintTop_toBottomOf="@+id/challengeDate" />
-
-        <Button
-            android:id="@+id/btnHapus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/red"
-            android:text="Hapus"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/challengeDate" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

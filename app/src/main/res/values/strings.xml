@@ -22,8 +22,8 @@
     <string name="ic_heart">ic_heart</string>
     <string name="ic_koin">ic_koin</string>
     <string name="ic_xp">ic_xp</string>
-    <string name="september_challenge">September Challenge Mengurangi\nSampah Plastik</string>
-    <string name="date_challenge">4 – 16 Sep 2025</string>
+    <string name="date_challenge_agustus">1 – 10 Agustus 2025</string>
+    <string name="date_challenge_september">4 – 16 September 2025</string>
     <string name="poster_challenge">poster_challenge</string>
     <string name="ic_bottle">ic_bottle</string>
     <string name="ic_bekal">ic_bekal</string>
@@ -59,4 +59,5 @@
     <string name="tv_itemmateri">Gas Rumah Kaca dan Dampaknya</string>
     <string name="tv_linkmateri">Detail Materi</string>
     <string name="addnewchallenge">Tambah EcoChallenge Baru</string>
+    <string name="lanjutchallenge">Lanjutkan Challenge</string>
 </resources>

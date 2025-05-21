@@ -66,8 +66,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
                     db.collection("kuis").document(quiz.getId())
                             .delete()
                             .addOnSuccessListener(aVoid -> {
-                                quizList.remove(position);
-                                notifyItemRemoved(position);
                                 Toast.makeText(context, quiz.getTitle() + " dihapus", Toast.LENGTH_SHORT).show();
                             })
                             .addOnFailureListener(e -> {

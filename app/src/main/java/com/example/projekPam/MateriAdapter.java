@@ -1,10 +1,11 @@
 package com.example.projekPam;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -16,6 +17,7 @@ public class MateriAdapter extends RecyclerView.Adapter<MateriAdapter.MateriView
 
     private final Context context;
     private final List<Materi> materiList;
+    private String userRole = "user"; // Default role
     private OnItemClickListener listener;
 
     // Interface for item clicks
@@ -27,10 +29,15 @@ public class MateriAdapter extends RecyclerView.Adapter<MateriAdapter.MateriView
         this.listener = listener;
     }
 
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
     // Constructor
-    public MateriAdapter(Context context, List<Materi> materiList) {
+    public MateriAdapter(Context context, List<Materi> materiList, String userRole) {
         this.context = context;
         this.materiList = materiList;
+        this.userRole = userRole;
     }
 
     @NonNull
@@ -57,36 +64,43 @@ public class MateriAdapter extends RecyclerView.Adapter<MateriAdapter.MateriView
             holder.binding.imgMateri.setImageResource(R.drawable.book_icon);
         }
 
-        // Handle tvLinkMateri (placeholder, update if Firestore has a link field)
-        holder.binding.tvLinkMateri.setText("Lihat Detail");
+        // Handle tvLinkMateri (using deskripsi as detail)
+        holder.binding.tvLinkMateri.setText(materi.getDeskripsi() != null ? materi.getDeskripsi() : "Lihat Detail");
 
-        // Handle download progress (placeholder, update if Firestore tracks progress)
+        // Handle download progress (placeholder)
         holder.binding.tvPersenMateri.setText("0%");
-        holder.binding.imgDownloadBar.setVisibility(View.GONE); // Hide until download is implemented
+        holder.binding.imgDownloadBar.setVisibility(View.GONE);
 
-        // Klik tombol download
+        // Role-based visibility for delete button
+        holder.binding.btnDeleteMateri.setVisibility(userRole.equals("admin") ? View.VISIBLE : View.GONE);
+
+        // Klik tombol download (placeholder)
         holder.binding.btnDownloadMateri.setOnClickListener(v -> {
-            // Placeholder for download action
-            // Example: Download materi.getImage()
-            // For now, simulate progress
             holder.binding.imgDownloadBar.setVisibility(View.VISIBLE);
             holder.binding.tvPersenMateri.setText("Downloading...");
         });
 
         // Klik tombol delete
         holder.binding.btnDeleteMateri.setOnClickListener(v -> {
-            FirebaseFirestore.getInstance()
-                    .collection("materi")
-                    .document(materi.getId())
-                    .delete()
-                    .addOnSuccessListener(aVoid -> {
-                        materiList.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, materiList.size());
-                    })
-                    .addOnFailureListener(e -> {
-                        // Handle error
-                    });
+            if (userRole.equals("admin")) {
+                FirebaseFirestore.getInstance()
+                        .collection("materi")
+                        .document(materi.getId())
+                        .delete()
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(context, "Materi dihapus", Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(e -> {
+                            // Handle error
+                        });
+            }
+        });
+
+        // Item click for edit or view
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(materi);
+            }
         });
     }
 

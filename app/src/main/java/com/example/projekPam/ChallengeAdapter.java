@@ -115,9 +115,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
     private void deleteChallenge(Challenge challenge, int position) {
         String challengeIdToDelete = challenge.getId();
 
-        challengeList.remove(position);
-        notifyItemRemoved(position);
-
         Toast.makeText(context, "Menghapus challenge..", Toast.LENGTH_SHORT).show();
 
         db.collection("challenge").document(challengeIdToDelete)

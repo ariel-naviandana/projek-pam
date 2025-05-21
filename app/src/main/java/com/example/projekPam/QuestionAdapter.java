@@ -65,7 +65,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                     db.collection("kuis").document(quizId).collection("soal").document(question.getId())
                             .delete()
                             .addOnSuccessListener(aVoid -> {
-                                questionList.remove(position);
                                 Toast.makeText(context, "Soal dihapus", Toast.LENGTH_SHORT).show();
                             })
                             .addOnFailureListener(e ->

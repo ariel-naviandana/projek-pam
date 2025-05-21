@@ -9,11 +9,16 @@ import com.example.projekPam.databinding.ActivityRegisterBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityRegisterBinding binding;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance(); // Initialize Firestore
 
         binding.btnRegister.setOnClickListener(this);
         binding.txtLogin.setOnClickListener(this);
@@ -33,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra("USERNAME", currentUser.getEmail());
             startActivity(intent);
             finish();
         }
@@ -56,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String email = binding.etEmail.getText().toString().trim();
         String password = binding.etPassword.getText().toString().trim();
         String confirmPassword = binding.etConfirmPassword.getText().toString().trim();
+        String fullname = binding.etUsername.getText().toString().trim(); // Assuming username is used as fullname
 
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Semua kolom harus diisi!", Toast.LENGTH_SHORT).show();
@@ -82,21 +88,44 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            user.sendEmailVerification()
-                                    .addOnCompleteListener(verificationTask -> {
-                                        if (verificationTask.isSuccessful()) {
-                                            Toast.makeText(RegisterActivity.this,
-                                                    "Registrasi Berhasil! Silakan verifikasi email Anda.",
-                                                    Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                            intent.putExtra("USERNAME", email);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {
-                                            Toast.makeText(RegisterActivity.this,
-                                                    "Gagal mengirim email verifikasi: " + verificationTask.getException().getMessage(),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
+                            // Prepare user data for Firestore
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("id", user.getUid());
+                            userData.put("email", email);
+                            userData.put("fullname", fullname);
+                            userData.put("username", username);
+                            userData.put("image", "");
+                            userData.put("xp", 0);
+                            userData.put("coin", 0);
+                            userData.put("created_at", new Date());
+                            userData.put("role", "user");
+
+                            // Save to Firestore
+                            db.collection("users").document(user.getUid())
+                                    .set(userData)
+                                    .addOnSuccessListener(aVoid -> {
+                                        // Send email verification
+                                        user.sendEmailVerification()
+                                                .addOnCompleteListener(verificationTask -> {
+                                                    if (verificationTask.isSuccessful()) {
+                                                        Toast.makeText(RegisterActivity.this,
+                                                                "Registrasi Berhasil! Silakan verifikasi email Anda.",
+                                                                Toast.LENGTH_LONG).show();
+                                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                                        intent.putExtra("USERNAME", email);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(RegisterActivity.this,
+                                                                "Gagal mengirim email verifikasi: " + verificationTask.getException().getMessage(),
+                                                                Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(RegisterActivity.this,
+                                                "Gagal menyimpan data pengguna: " + e.getMessage(),
+                                                Toast.LENGTH_SHORT).show();
                                     });
                         }
                     } else {

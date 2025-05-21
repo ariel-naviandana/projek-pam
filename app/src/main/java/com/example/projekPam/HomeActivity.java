@@ -8,10 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.projekPam.databinding.ActivityHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityHomeBinding binding;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,18 +22,31 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize Firebase Auth
+        // Initialize Firebase Auth and Firestore
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        // Set username from current Firebase user
+        // Fetch username from Firestore
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            String email = currentUser.getEmail();
-            if (email != null) {
-                binding.tvName.setText(email);
-            } else {
-                binding.tvName.setText("User"); // Fallback if email is null
-            }
+            db.collection("users").document(currentUser.getUid())
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                String username = document.getString("username");
+                                binding.tvName.setText(username != null ? username : "User");
+                            } else {
+                                binding.tvName.setText("User"); // Fallback if document doesn't exist
+                            }
+                        } else {
+                            binding.tvName.setText("User"); // Fallback on error
+                            Toast.makeText(HomeActivity.this,
+                                    "Gagal mengambil data pengguna: " + task.getException().getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
         } else {
             binding.tvName.setText("Guest"); // Fallback if no user is logged in
         }

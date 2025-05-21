@@ -6,11 +6,14 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -21,8 +24,8 @@ import java.util.List;
 public class ProfileUtamaActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewFriends, recyclerViewAddFriends;
+    private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private String currentUserId = "userId123";
     private List<Friend> friendsList;
     private List<Friend> potentialFriendsList;
     private Button editProfileButton;
@@ -36,6 +39,11 @@ public class ProfileUtamaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_utama);
 
+        // Initialize Firebase Auth and Firestore
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        // Initialize views
         recyclerViewFriends = findViewById(R.id.recyclerViewDaftarTeman);
         recyclerViewAddFriends = findViewById(R.id.recyclerViewTambahTeman);
         editProfileButton = findViewById(R.id.btnEditProfile);
@@ -47,21 +55,28 @@ public class ProfileUtamaActivity extends AppCompatActivity {
         ivXp = findViewById(R.id.ivXp);
         ivKoin = findViewById(R.id.ivKoin);
 
-        db = FirebaseFirestore.getInstance();
         friendsList = new ArrayList<>();
         potentialFriendsList = new ArrayList<>();
 
-        friendAdapter = new FriendAdapter(this, friendsList, currentUserId);
+        // Initialize adapters
+        friendAdapter = new FriendAdapter(this, friendsList, getCurrentUserId());
         recyclerViewFriends.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewFriends.setAdapter(friendAdapter);
 
-        addFriendAdapter = new AddFriendAdapter(this, potentialFriendsList, currentUserId);
+        addFriendAdapter = new AddFriendAdapter(this, potentialFriendsList, getCurrentUserId());
         recyclerViewAddFriends.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerViewAddFriends.setAdapter(addFriendAdapter);
 
+        // Edit profile button listener
         editProfileButton.setOnClickListener(view -> {
             startActivity(new Intent(ProfileUtamaActivity.this, ProfileActivity.class));
         });
+
+        // Set username from Intent if available
+        Intent intent = getIntent();
+        if (intent.hasExtra("USERNAME")) {
+            usernameText.setText(intent.getStringExtra("USERNAME"));
+        }
     }
 
     @Override
@@ -72,8 +87,21 @@ public class ProfileUtamaActivity extends AppCompatActivity {
         loadPotentialFriendsList();
     }
 
+    private String getCurrentUserId() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(this, "Pengguna tidak ditemukan. Silakan login kembali.", Toast.LENGTH_SHORT).show();
+            finish();
+            return "";
+        }
+        return currentUser.getUid();
+    }
+
     private void loadProfile() {
-        db.collection("users").document(currentUserId)
+        String userId = getCurrentUserId();
+        if (userId.isEmpty()) return;
+
+        db.collection("users").document(userId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
@@ -88,17 +116,30 @@ public class ProfileUtamaActivity extends AppCompatActivity {
                         coinText.setText(coin != null ? String.valueOf(coin) : "0");
 
                         avatarImage.setImageResource(R.drawable.avatar);
+                    } else {
+                        Log.e("ProfileLoad", "Dokumen profil tidak ditemukan");
+                        usernameText.setText("-");
+                        emailText.setText("-");
+                        xpText.setText("0");
+                        coinText.setText("0");
                     }
                 })
-                .addOnFailureListener(e -> Log.e("ProfileLoad", "Gagal memuat profil: " + e.getMessage()));
+                .addOnFailureListener(e -> {
+                    Log.e("ProfileLoad", "Gagal memuat profil: " + e.getMessage());
+                    Toast.makeText(this, "Gagal memuat profil: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void loadFriendsList() {
-        db.collection("users").document(currentUserId)
+        String userId = getCurrentUserId();
+        if (userId.isEmpty()) return;
+
+        db.collection("users").document(userId)
                 .collection("friends")
                 .addSnapshotListener((snapshots, e) -> {
                     if (e != null) {
-                        Log.e("FriendLoad", "Listen failed.", e);
+                        Log.e("FriendLoad", "Listen failed: " + e.getMessage());
+                        Toast.makeText(this, "Gagal memuat daftar teman: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -126,7 +167,10 @@ public class ProfileUtamaActivity extends AppCompatActivity {
     }
 
     private void loadPotentialFriendsList() {
-        db.collection("users").document(currentUserId)
+        String userId = getCurrentUserId();
+        if (userId.isEmpty()) return;
+
+        db.collection("users").document(userId)
                 .collection("friends")
                 .get()
                 .addOnSuccessListener(friendSnapshots -> {
@@ -141,8 +185,7 @@ public class ProfileUtamaActivity extends AppCompatActivity {
                                 potentialFriendsList.clear();
                                 for (DocumentSnapshot document : userSnapshots) {
                                     String id = document.getId();
-
-                                    if (!id.equals(currentUserId) && !friendIds.contains(id)) {
+                                    if (!id.equals(userId) && !friendIds.contains(id)) {
                                         String username = document.getString("username");
                                         String fullname = document.getString("fullname");
                                         potentialFriendsList.add(new Friend(id, username, fullname));
@@ -150,8 +193,14 @@ public class ProfileUtamaActivity extends AppCompatActivity {
                                 }
                                 addFriendAdapter.notifyDataSetChanged();
                             })
-                            .addOnFailureListener(e -> Log.e("PotentialLoad", "Gagal memuat daftar calon teman: " + e.getMessage()));
+                            .addOnFailureListener(e -> {
+                                Log.e("PotentialLoad", "Gagal memuat daftar calon teman: " + e.getMessage());
+                                Toast.makeText(this, "Gagal memuat daftar calon teman: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
                 })
-                .addOnFailureListener(e -> Log.e("FriendCheck", "Gagal mengambil daftar teman: " + e.getMessage()));
+                .addOnFailureListener(e -> {
+                    Log.e("FriendCheck", "Gagal mengambil daftar teman: " + e.getMessage());
+                    Toast.makeText(this, "Gagal mengambil daftar teman: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }

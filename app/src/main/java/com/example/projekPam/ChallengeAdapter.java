@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.projekPam.databinding.ItemChallengeBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.Timestamp;
@@ -54,12 +56,14 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         holder.binding.challengeTitle.setText(challenge.getJudul());
         holder.binding.challengeDate.setText(dateRange);
 
-        if (challenge.getJudul() != null && challenge.getJudul().equalsIgnoreCase("Agustus Challenge Mengurangi Sampah Plastik")) {
-            holder.binding.challengeImage.setImageResource(R.drawable.poster_challenge);
-        } else if (challenge.getJudul() != null && challenge.getJudul().equalsIgnoreCase("September Challenge Menanam Pohon")) {
-            holder.binding.challengeImage.setImageResource(R.drawable.poster_challenge2);
+        if (challenge.getImage() != null && !challenge.getImage().isEmpty()) {
+            Glide.with(context)
+                    .load(challenge.getImage())
+                    .placeholder(R.drawable.poster_challenge)
+                    .error(R.drawable.poster_challenge)
+                    .into(holder.binding.challengeImage);
         } else {
-            holder.binding.challengeImage.setImageResource(R.drawable.challenge_image);
+            holder.binding.challengeImage.setImageResource(R.drawable.poster_challenge);
         }
 
         // Show/hide edit and delete buttons based on user role

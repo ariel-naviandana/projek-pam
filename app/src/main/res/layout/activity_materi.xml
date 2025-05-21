@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/header_bottom_rounded">
+        android:background="@drawable/header">
 
         <LinearLayout
             android:id="@+id/layoutHeaderMateriR1"

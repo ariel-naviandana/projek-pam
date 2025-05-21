@@ -2,18 +2,14 @@ package com.example.projekPam;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.example.projekPam.databinding.ActivityMateriBinding;
-
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +18,7 @@ public class MateriActivity extends AppCompatActivity implements View.OnClickLis
     private ActivityMateriBinding binding;
     private MateriAdapter materiAdapter;
     private List<Materi> listMateri;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,36 +26,70 @@ public class MateriActivity extends AppCompatActivity implements View.OnClickLis
         binding = ActivityMateriBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Binding clickable object
+        // Initialize Firestore
+        db = FirebaseFirestore.getInstance();
+
+        // Binding clickable objects
         binding.btnBackMateri.setOnClickListener(this);
         binding.fabTambahMateri.setOnClickListener(this);
+        binding.btSearchMateri.setOnClickListener(this);
 
-        // Set judul dari intent
-        String title = getIntent().getStringExtra("TITLE");
-        binding.tvCardJudulMateri.setText(title);
+        // Handle intent extras
+        String materiId = getIntent().getStringExtra("MATERI_ID");
+        String judul = getIntent().getStringExtra("JUDUL");
+        if (judul != null && !judul.isEmpty()) {
+            binding.tvCardJudulMateri.setText(judul);
+        } else {
+            binding.tvCardJudulMateri.setText("Daftar Materi");
+        }
 
         // Setup RecyclerView
         setupRecyclerView();
+
+        // Load data from Firestore
+        loadMateriData();
     }
 
     private void setupRecyclerView() {
-        // Data local
         listMateri = new ArrayList<>();
-        listMateri.add(new Materi("Gas Rumah Kaca dan Dampaknya", R.drawable.fire_icon));
-        listMateri.add(new Materi("Bukti Perubahan Iklim pada Ekosistem", R.drawable.ic_earth));
-        listMateri.add(new Materi("Energi Terbarukan dan Perubahan Iklim", R.drawable.ic_electricity));
-        listMateri.add(new Materi("Adaptasi dan Mitigasi Perubahan Iklim", R.drawable.ic_umbrella));
-        listMateri.add(new Materi("Perubahan Iklim dan Pertanian", R.drawable.ic_ecofriendly));
-
-        // Buat adapter dan pasang ke RecyclerView
-        materiAdapter = new MateriAdapter(listMateri);
+        materiAdapter = new MateriAdapter(this, listMateri);
         binding.rvDaftarMateri.setLayoutManager(new LinearLayoutManager(this));
         binding.rvDaftarMateri.setAdapter(materiAdapter);
 
-        // Tambahkan listener item klik
+        // Set item click listener
         materiAdapter.setOnItemClickListener(materi ->
-                Toast.makeText(MateriActivity.this, materi.getNamaMateri(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(MateriActivity.this, materi.getJudul(), Toast.LENGTH_SHORT).show()
         );
+    }
+
+    private void loadMateriData() {
+        db.collection("materi")
+                .orderBy("created_at", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    listMateri.clear();
+                    for (com.google.firebase.firestore.DocumentSnapshot doc : querySnapshot) {
+                        String id = doc.getId();
+                        String judul = doc.getString("judul");
+                        String image = doc.getString("image");
+                        String deskripsi = doc.getString("deskripsi");
+                        com.google.firebase.Timestamp createdAt = doc.getTimestamp("created_at");
+
+                        // Validate required fields
+                        if (judul == null || judul.isEmpty() || createdAt == null) {
+                            Log.w("MateriActivity", "Skipping materi document with missing required fields: " + id);
+                            continue;
+                        }
+
+                        Materi materi = new Materi(id, judul, image, deskripsi, createdAt);
+                        listMateri.add(materi);
+                    }
+                    materiAdapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("MateriActivity", "Failed to load materi: " + e.getMessage());
+                    Toast.makeText(this, "Gagal memuat materi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     @Override
@@ -72,6 +103,8 @@ public class MateriActivity extends AppCompatActivity implements View.OnClickLis
             Intent intent = new Intent(this, AddMateriActivity.class);
             startActivity(intent);
             finish();
+        } else if (id == R.id.btSearchMateri) {
+            Toast.makeText(this, "Fitur pencarian belum diimplementasikan", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -37,7 +37,7 @@
     <string name="home">Home</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="profile">Profile</string>
-    <string name="notif">Notifikasi</string>
+    <string name="logout">Logout</string>
     <string name="avatar">Avatar</string>
     <string name="materi">Materi Pelajaran</string>
     <string name="challenge">Challenge</string>

@@ -103,12 +103,12 @@
                                 app:srcCompat="@drawable/dollar25" />
 
                             <ImageView
-                                android:id="@+id/notif"
+                                android:id="@+id/logout"
                                 android:layout_width="30dp"
                                 android:layout_height="39dp"
                                 android:layout_marginEnd="12dp"
                                 android:layout_marginBottom="18dp"
-                                android:contentDescription="@string/notif"
+                                android:contentDescription="@string/logout"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"

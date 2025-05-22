@@ -5,12 +5,14 @@ public class LeaderboardEntry {
     private String username;
     private int skor;
     private int ranking;
+    private String image;
 
-    public LeaderboardEntry(String nama, String username, int skor, int ranking) {
+    public LeaderboardEntry(String nama, String username, int skor, int ranking, String image) {
         this.nama = nama;
         this.username = username;
         this.skor = skor;
         this.ranking = ranking;
+        this.image = image;
     }
 
     public String getNama() {
@@ -31,5 +33,9 @@ public class LeaderboardEntry {
 
     public void setRanking(int ranking) {
         this.ranking = ranking;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

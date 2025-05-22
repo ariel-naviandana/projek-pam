@@ -34,7 +34,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
 
         // Initialize RecyclerView and Adapter
         List<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
-        adapter = new LeaderboardAdapter(leaderboardEntries);
+        adapter = new LeaderboardAdapter(this, leaderboardEntries);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
 
@@ -59,6 +59,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
                         String username = doc.getString("username");
                         Long xp = doc.getLong("xp"); // Firestore may store xp as Long
                         String role = doc.getString("role");
+                        String image = doc.getString("image");
 
                         // Validate required fields
                         if (fullname == null || fullname.isEmpty() || username == null || username.isEmpty() || xp == null || role == null) {
@@ -67,7 +68,7 @@ public class LeaderboardActivity extends AppCompatActivity implements View.OnCli
                         }
 
                         // Create LeaderboardEntry without ranking (to be assigned after sorting)
-                        LeaderboardEntry entry = new LeaderboardEntry(fullname, username, xp.intValue(), 0); // Temporary ranking
+                        LeaderboardEntry entry = new LeaderboardEntry(fullname, username, xp.intValue(), 0, image); // Temporary ranking
                         leaderboardEntries.add(entry);
                     }
 

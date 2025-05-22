@@ -1,5 +1,6 @@
 package com.example.projekPam;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,13 +8,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.LeaderboardViewHolder> {
     private List<LeaderboardEntry> leaderboardList;
+    private Context context;
 
-    public LeaderboardAdapter(List<LeaderboardEntry> leaderboardList) {
+    public LeaderboardAdapter(Context context, List<LeaderboardEntry> leaderboardList) {
         this.leaderboardList = leaderboardList;
+        this.context = context;
     }
 
     @NonNull
@@ -32,6 +38,16 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         holder.tvUsername.setText(entry.getUsername());
         holder.tvScore.setText(String.valueOf(entry.getSkor()));
         holder.ivProfile.setImageResource(R.drawable.avatar);
+
+        if (entry.getImage() != null && !entry.getImage().isEmpty()) {
+            Glide.with(context)
+                    .load(entry.getImage())
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .into(holder.ivProfile);
+        } else {
+            holder.ivProfile.setImageResource(R.drawable.avatar);
+        }
 
         holder.tvRank.setVisibility(View.VISIBLE);
 
